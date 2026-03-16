@@ -2,91 +2,110 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>天赋探测仪｜16型人格天赋测试｜星测Star-t</title>
     <style>
+        /* 强制明亮模式 - 不受手机夜间模式影响 */
+        :root {
+            color-scheme: light only;
+            forced-color-adjust: none;
+        }
+        html {
+            color-scheme: light;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'System UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
-            background: #fff9f0;
-            color: #4a3f35;
-            line-height: 1.6;
+            background: #fff9f0 !important;
+            color: #4a3f35 !important;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 10px 0 30px;
+            /* 强制覆盖夜间模式 */
+            filter: none !important;
+            backdrop-filter: none !important;
+            -webkit-filter: none !important;
         }
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 12px 16px;
         }
         .watermark {
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #e0cfbc;
-            letter-spacing: 2px;
-            margin: 20px 0;
+            letter-spacing: 1.5px;
+            margin: 15px 0;
             padding: 8px 0;
             border-top: 1px solid #f5e8da;
             border-bottom: 1px solid #f5e8da;
         }
         h1 {
-            font-size: 2.4rem;
-            font-weight: 500;
+            font-size: 2.2rem;
+            font-weight: 600;
             letter-spacing: -0.01em;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             color: #5e4f3c;
+            line-height: 1.2;
         }
         h2 {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 400;
             color: #b19f89;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
         }
         .progress {
             background: #f0e2d2;
             height: 4px;
-            border-radius: 2px;
-            margin: 30px 0 20px;
+            border-radius: 4px;
+            margin: 20px 0;
         }
         .progress-bar {
             background: #d4b59e;
             height: 4px;
-            border-radius: 2px;
+            border-radius: 4px;
             width: 0%;
             transition: width 0.3s;
         }
         .question-card {
             background: #ffffff;
             border-radius: 28px;
-            padding: 30px;
-            box-shadow: 0 8px 24px rgba(200, 160, 120, 0.08);
+            padding: 24px 20px;
+            box-shadow: 0 4px 16px rgba(200, 160, 120, 0.08);
             border: 1px solid #f5e8da;
         }
         .question-text {
-            font-size: 1.5rem;
-            font-weight: 450;
-            margin-bottom: 30px;
+            font-size: 1.35rem;
+            font-weight: 500;
+            margin-bottom: 24px;
             line-height: 1.4;
             color: #4f4235;
+            padding: 0 4px;
         }
         .options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 10px;
+            margin-bottom: 24px;
         }
         .option-item {
             display: flex;
             align-items: center;
-            padding: 14px 20px;
+            padding: 14px 18px;
             background: #fdf8f2;
             border-radius: 40px;
             border: 1px solid #f0e2d2;
             cursor: pointer;
             transition: all 0.2s;
             color: #5e4f3c;
+            font-size: 1rem;
         }
         .option-item:hover {
             background: #f9eee4;
@@ -99,25 +118,32 @@
             font-weight: 500;
         }
         .option-item input {
-            margin-right: 16px;
+            margin-right: 14px;
             accent-color: #d4b59e;
-            transform: scale(1.2);
+            transform: scale(1.1);
+            width: 18px;
+            height: 18px;
         }
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 16px;
         }
         button {
             background: #ffffff;
             border: 1px solid #e2cfbc;
-            padding: 12px 28px;
+            padding: 14px 24px;
             border-radius: 40px;
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
             color: #5e4f3c;
+            flex: 1;
+            text-align: center;
+            -webkit-appearance: none;
+            appearance: none;
         }
         button:hover {
             background: #f9eee4;
@@ -132,11 +158,15 @@
             background: #c4a086;
             border-color: #c4a086;
         }
+        button:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
         .result-card {
             background: #ffffff;
-            border-radius: 32px;
-            padding: 40px 32px;
-            box-shadow: 0 12px 36px rgba(200, 160, 120, 0.08);
+            border-radius: 28px;
+            padding: 28px 20px;
+            box-shadow: 0 8px 24px rgba(200, 160, 120, 0.08);
             border: 1px solid #f5e8da;
         }
         .type-badge {
@@ -144,54 +174,55 @@
             background: #f9eee4;
             padding: 6px 16px;
             border-radius: 40px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #9f846b;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         .type-title {
-            font-size: 3rem;
-            font-weight: 500;
+            font-size: 2.4rem;
+            font-weight: 600;
             letter-spacing: -0.02em;
             line-height: 1.1;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             color: #4f4235;
         }
         .type-desc {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #9f846b;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             font-style: italic;
+            line-height: 1.5;
         }
         .section {
-            margin: 40px 0;
+            margin: 32px 0;
         }
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: #d4b59e;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .bullet-list {
             list-style: none;
         }
         .bullet-list li {
-            margin-bottom: 20px;
-            padding-left: 24px;
+            margin-bottom: 18px;
+            padding-left: 22px;
             position: relative;
         }
         .bullet-list li::before {
             content: "•";
             position: absolute;
-            left: 8px;
+            left: 4px;
             color: #d4b59e;
             font-size: 1.3rem;
         }
         .bullet-list strong {
             display: block;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
             color: #4f4235;
         }
         .bullet-list span {
@@ -212,78 +243,82 @@
         }
         .job-name {
             font-weight: 500;
-            width: 160px;
+            width: 140px;
             color: #4f4235;
+            font-size: 0.95rem;
         }
         .job-reason {
             color: #9f846b;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
         .book-item {
-            margin-bottom: 24px;
-            padding-bottom: 20px;
+            margin-bottom: 22px;
+            padding-bottom: 18px;
             border-bottom: 1px dashed #f0e2d2;
         }
         .book-title {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #4f4235;
         }
         .book-author {
             color: #b19f89;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin: 4px 0 8px;
         }
         .book-desc {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #7f6b58;
             line-height: 1.5;
         }
         .quote-section {
-            margin: 40px 0 20px;
+            margin: 32px 0 20px;
         }
         .quote-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: #d4b59e;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .quote {
-            padding: 30px 24px;
+            padding: 24px 18px;
             background: #fdf8f2;
-            border-radius: 24px;
+            border-radius: 20px;
             text-align: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-style: italic;
             color: #4f4235;
             border-left: 4px solid #d4b59e;
+            line-height: 1.5;
         }
         .quote-author {
             margin-top: 12px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #b19f89;
             font-style: normal;
         }
         .chart-container {
-            max-width: 380px;
-            margin: 30px auto;
+            max-width: 320px;
+            margin: 20px auto;
         }
         .score-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 16px 0;
         }
         .score-table td {
             padding: 8px 0;
             border-bottom: 1px solid #f9eee4;
+            font-size: 0.95rem;
         }
         .score-bar-container {
             height: 8px;
             background: #f0e2d2;
             border-radius: 4px;
             overflow: hidden;
-            margin: 0 10px;
+            margin: 0 8px;
         }
         .score-bar-fill {
             height: 8px;
@@ -293,72 +328,68 @@
             transition: width 0.3s;
         }
         .score-value {
-            width: 50px;
+            width: 45px;
             text-align: right;
             color: #5e4f3c;
             font-weight: 500;
+            font-size: 0.9rem;
         }
         .personality-read {
             background: #fdf8f2;
-            border-radius: 24px;
-            padding: 30px;
-            margin: 30px 0;
-            font-size: 1rem;
-            line-height: 1.8;
+            border-radius: 20px;
+            padding: 24px 18px;
+            margin: 28px 0;
+            font-size: 0.95rem;
+            line-height: 1.7;
             color: #4f4235;
             border-left: 4px solid #d4b59e;
         }
         .personality-read p {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .personality-read .read-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             color: #4f4235;
         }
-        .poster-btn {
+        .poster-btn, .reset-btn {
             display: block;
             width: 100%;
             padding: 16px;
+            border-radius: 40px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin: 16px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            border: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .poster-btn {
             background: #d4b59e;
             color: #ffffff;
-            border: none;
-            border-radius: 40px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin: 30px 0 15px;
-            cursor: pointer;
-            transition: background 0.2s;
         }
         .poster-btn:hover {
             background: #c4a086;
         }
         .reset-btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
             background: #ffffff;
             border: 1px solid #e2cfbc;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 500;
             color: #5e4f3c;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
         }
         .reset-btn:hover {
             background: #f9eee4;
             border-color: #d4b59e;
         }
         .disclaimer {
-            margin-top: 30px;
-            padding: 20px;
+            margin-top: 28px;
+            padding: 18px;
             background: #fdf8f2;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            border-radius: 18px;
+            font-size: 0.8rem;
             color: #b19f89;
             text-align: center;
             line-height: 1.6;
@@ -366,50 +397,72 @@
         .extra-info {
             background: #fdf8f2;
             border-radius: 24px;
-            padding: 24px;
-            margin: 30px 0;
+            padding: 20px;
+            margin: 24px 0;
         }
         .extra-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: #d4b59e;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         .select-group {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         .select-item {
             flex: 1;
-            min-width: 150px;
+            min-width: 140px;
         }
         .select-item label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #9f846b;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         select {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 14px;
             background: #ffffff;
             border: 1px solid #f0e2d2;
-            border-radius: 40px;
-            font-size: 1rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
             color: #4f4235;
             outline: none;
             cursor: pointer;
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4b59e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
-            background-position: right 16px center;
+            background-position: right 14px center;
             background-size: 16px;
         }
         select:hover {
             border-color: #d4b59e;
+        }
+        /* 手机优化 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 8px 12px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .type-title {
+                font-size: 2rem;
+            }
+            .job-name {
+                width: 120px;
+            }
+            .nav-buttons {
+                flex-wrap: wrap;
+            }
+            button {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+            }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -422,9 +475,9 @@
         <div v-if="page === 'home'">
             <h1>天赋探测仪</h1>
             <h2>基于哈佛多元智能理论 · 16型人格天赋图谱</h2>
-            <div style="background: #ffffff; border-radius: 32px; padding: 40px; text-align: center; border: 1px solid #f5e8da;">
-                <p style="font-size: 1.2rem; margin-bottom: 30px; color: #5e4f3c;">40道精选题目，找到你的天赋</p>
-                <button class="primary" @click="startTest" style="padding: 16px 48px; font-size: 1.2rem;">开始测试</button>
+            <div style="background: #ffffff; border-radius: 28px; padding: 32px 20px; text-align: center; border: 1px solid #f5e8da;">
+                <p style="font-size: 1.2rem; margin-bottom: 28px; color: #5e4f3c; line-height: 1.5;">40道精选题目，找到你的天赋</p>
+                <button class="primary" @click="startTest" style="padding: 16px 40px; font-size: 1.2rem; width: auto; min-width: 200px;">开始测试</button>
             </div>
             <div class="watermark" style="margin-top: 30px;">✦ 星测Star-t ✦</div>
         </div>
@@ -434,7 +487,7 @@
                 <div class="progress-bar" :style="{ width: (currentIndex / questions.length * 100) + '%' }"></div>
             </div>
             <div class="question-card">
-                <div style="color: #d4b59e; margin-bottom: 12px;">第 {{ currentIndex+1 }} / {{ questions.length }} 题</div>
+                <div style="color: #d4b59e; margin-bottom: 10px; font-size: 0.9rem;">第 {{ currentIndex+1 }} / {{ questions.length }} 题</div>
                 <div class="question-text">{{ questions[currentIndex].text }}</div>
                 <div class="options">
                     <div v-for="(opt, idx) in ['非常符合','比较符合','一般','不太符合','完全不符合']" 
@@ -515,7 +568,7 @@
                     <div class="section-title">你的天赋分值</div>
                     <table class="score-table">
                         <tr v-for="(score, dim) in dimensionScores" :key="dim">
-                            <td style="width: 100px;">{{ dim }}</td>
+                            <td style="width: 90px;">{{ dim }}</td>
                             <td style="padding: 0;">
                                 <div class="score-bar-container">
                                     <div class="score-bar-fill" :style="{ width: (score/20*100) + '%' }"></div>
@@ -568,10 +621,10 @@
                     </div>
                 </div>
 
-                <div style="text-align: center; margin: 30px 0 10px; color: #e0cfbc; font-size: 0.8rem;">✦ 星测Star-t ✦</div>
+                <div style="text-align: center; margin: 24px 0 8px; color: #e0cfbc; font-size: 0.8rem;">✦ 星测Star-t ✦</div>
             </div>
 
-            <button class="poster-btn" @click="generatePoster">⬇️ 生成天赋海报 · 分享给朋友</button>
+            <button class="poster-btn" @click="generatePoster">⬇️ 保存天赋海报到相册</button>
             <button class="reset-btn" @click="resetTest">⟲ 重新测试</button>
 
             <div class="disclaimer">
@@ -1356,18 +1409,32 @@
                 },
                 generatePoster() {
                     const element = document.getElementById('result-content');
+                    
+                    // 显示生成中提示
+                    alert('正在生成海报，请稍候...');
+                    
                     html2canvas(element, {
-                        scale: 1.5,
+                        scale: 2,
                         backgroundColor: '#ffffff',
-                        logging: false
+                        logging: false,
+                        allowTaint: false,
+                        useCORS: true,
+                        windowWidth: element.scrollWidth,
+                        windowHeight: element.scrollHeight
                     }).then((canvas) => {
+                        // 创建下载链接
                         const link = document.createElement('a');
                         link.download = `天赋探测仪-${this.resultType.name}.png`;
                         link.href = canvas.toDataURL('image/png');
                         link.click();
-                        alert('海报已生成，请查收下载文件夹 📸');
-                    }).catch(() => {
-                        alert('海报生成失败，请稍后重试');
+                        
+                        // 提示成功
+                        setTimeout(() => {
+                            alert('✅ 海报已保存到手机相册！请在相册中查看。');
+                        }, 100);
+                    }).catch((error) => {
+                        console.error('海报生成失败:', error);
+                        alert('❌ 海报生成失败，请稍后重试。如果问题持续，可以截图保存。');
                     });
                 },
                 resetTest() {
