@@ -2,975 +2,441 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>天赋探测仪｜16型人格天赋测试｜星测Star-t</title>
-    
-    <!-- 终极防暗模式 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>天赋探测仪｜16型人格天赋测试</title>
+    <!-- 强制最高级别亮色模式 -->
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#fff9f0">
     <style>
-        :root {
-            color-scheme: light !important;
-            forced-color-adjust: none !important;
-        }
-        
-        @media (prefers-color-scheme: dark) {
-            :root {
-                color-scheme: light !important;
-                forced-color-adjust: none !important;
-            }
-            body, body * {
-                background-color: initial !important;
-                color: initial !important;
-                border-color: initial !important;
-            }
-        }
-
-        html {
-            color-scheme: light !important;
-            background: #fff9f0 !important;
-        }
-        
+        /* 暴力强制亮色 - 覆盖一切 */
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            -webkit-color-scheme: light;
+            color-scheme: light;
+            forced-color-adjust: none;
             -webkit-tap-highlight-color: transparent;
         }
-        
-        body {
+        html, body {
             background: #fff9f0 !important;
             color: #4a3f35 !important;
-            line-height: 1.5;
-            min-height: 100vh;
-            padding: 10px 0 30px;
+            filter: none !important;
+            -webkit-filter: none !important;
         }
-        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 12px;
+            min-height: 100vh;
+        }
         .container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 12px 16px;
         }
-        
         .watermark {
             text-align: center;
+            color: #d4b59e;
             font-size: 0.8rem;
-            color: #e0cfbc !important;
-            letter-spacing: 1.5px;
             margin: 15px 0;
-            padding: 8px 0;
-            border-top: 1px solid #f5e8da;
-            border-bottom: 1px solid #f5e8da;
+            padding: 5px;
+            border-top: 1px solid #f0e2d2;
+            border-bottom: 1px solid #f0e2d2;
         }
-        
         h1 {
             font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.3rem;
-            color: #5e4f3c !important;
-            line-height: 1.2;
+            color: #5e4f3c;
+            margin: 0 0 5px;
         }
-        
         h2 {
             font-size: 1.1rem;
-            font-weight: 400;
-            color: #b19f89 !important;
-            margin-bottom: 1.5rem;
-            line-height: 1.4;
+            color: #b19f89;
+            font-weight: normal;
+            margin: 0 0 25px;
         }
-        
-        .progress {
-            background: #f0e2d2 !important;
-            height: 4px;
-            border-radius: 4px;
-            margin: 20px 0;
-        }
-        
-        .progress-bar {
-            background: #d4b59e !important;
-            height: 4px;
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.3s;
-        }
-        
         .question-card {
-            background: #ffffff !important;
+            background: white;
             border-radius: 28px;
             padding: 24px 20px;
-            box-shadow: 0 4px 16px rgba(200, 160, 120, 0.08);
             border: 1px solid #f5e8da;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
-        
-        .question-text {
-            font-size: 1.35rem;
-            font-weight: 500;
-            margin-bottom: 24px;
-            line-height: 1.4;
-            color: #4f4235 !important;
-            padding: 0 4px;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-        
-        .option-item {
-            display: flex;
-            align-items: center;
+        .options div {
+            background: #fdf8f2;
+            border: 1px solid #f0e2d2;
+            border-radius: 40px;
             padding: 14px 18px;
-            background: #fdf8f2 !important;
-            border-radius: 40px;
-            border: 1px solid #f0e2d2;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #5e4f3c !important;
-            font-size: 1rem;
+            margin: 8px 0;
         }
-        
-        .option-item:hover {
-            background: #f9eee4 !important;
-            border-color: #e2cfbc;
-        }
-        
-        .option-item.selected {
-            background: #ecdac9 !important;
-            border-color: #d4b59e;
-            color: #4a3a2a !important;
-            font-weight: 500;
-        }
-        
-        .option-item input {
-            margin-right: 14px;
-            accent-color: #d4b59e;
-            transform: scale(1.1);
-            width: 18px;
-            height: 18px;
-        }
-        
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        
-        button {
-            background: #ffffff !important;
-            border: 1px solid #e2cfbc;
-            padding: 14px 24px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #5e4f3c !important;
-            flex: 1;
-            text-align: center;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        
-        button:hover {
-            background: #f9eee4 !important;
-            border-color: #d4b59e;
-        }
-        
-        button.primary {
-            background: #d4b59e !important;
-            color: #ffffff !important;
-            border-color: #d4b59e;
-        }
-        
-        button.primary:hover {
-            background: #c4a086 !important;
-            border-color: #c4a086;
-        }
-        
-        button:disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        
-        .result-card {
-            background: #ffffff !important;
-            border-radius: 28px;
-            padding: 28px 20px;
-            box-shadow: 0 8px 24px rgba(200, 160, 120, 0.08);
-            border: 1px solid #f5e8da;
-        }
-        
-        .type-badge {
-            display: inline-block;
-            background: #f9eee4 !important;
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            color: #9f846b !important;
-            margin-bottom: 12px;
-        }
-        
-        .type-title {
-            font-size: 2.4rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            color: #4f4235 !important;
-        }
-        
-        .type-desc {
-            font-size: 1.1rem;
-            color: #9f846b !important;
-            margin-bottom: 24px;
-            font-style: italic;
-            line-height: 1.5;
-        }
-        
-        .section {
-            margin: 32px 0;
-        }
-        
-        .section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #d4b59e !important;
-            margin-bottom: 16px;
-        }
-        
-        .bullet-list {
-            list-style: none;
-        }
-        
-        .bullet-list li {
-            margin-bottom: 18px;
-            padding-left: 22px;
-            position: relative;
-        }
-        
-        .bullet-list li::before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: #d4b59e !important;
-            font-size: 1.3rem;
-        }
-        
-        .bullet-list strong {
-            display: block;
-            font-size: 1.05rem;
-            margin-bottom: 4px;
-            color: #4f4235 !important;
-        }
-        
-        .bullet-list span {
-            color: #7f6b58 !important;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        
-        .job-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .job-table tr {
-            border-bottom: 1px solid #f9eee4;
-        }
-        
-        .job-table td {
-            padding: 12px 0;
-            vertical-align: top;
-        }
-        
-        .job-name {
-            font-weight: 500;
-            width: 140px;
-            color: #4f4235 !important;
-            font-size: 0.95rem;
-        }
-        
-        .job-reason {
-            color: #9f846b !important;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-        
-        .book-item {
-            margin-bottom: 22px;
-            padding-bottom: 18px;
-            border-bottom: 1px dashed #f0e2d2;
-        }
-        
-        .book-title {
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: #4f4235 !important;
-        }
-        
-        .book-author {
-            color: #b19f89 !important;
-            font-size: 0.85rem;
-            margin: 4px 0 8px;
-        }
-        
-        .book-desc {
-            color: #7f6b58 !important;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
-        .quote-section {
-            margin: 32px 0 20px;
-        }
-        
-        .quote-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #d4b59e !important;
-            margin-bottom: 10px;
-        }
-        
-        .quote {
-            padding: 24px 18px;
-            background: #fdf8f2 !important;
-            border-radius: 20px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-style: italic;
-            color: #4f4235 !important;
-            border-left: 4px solid #d4b59e;
-            line-height: 1.5;
-        }
-        
-        .quote-author {
-            margin-top: 12px;
-            font-size: 0.9rem;
-            color: #b19f89 !important;
-            font-style: normal;
-        }
-        
-        .chart-container {
-            max-width: 320px;
-            margin: 20px auto;
-        }
-        
-        .score-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-        }
-        
-        .score-table td {
-            padding: 8px 0;
-            border-bottom: 1px solid #f9eee4;
-            font-size: 0.95rem;
-        }
-        
-        .score-bar-container {
-            height: 8px;
-            background: #f0e2d2 !important;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 0 8px;
-        }
-        
-        .score-bar-fill {
-            height: 8px;
-            background: #d4b59e !important;
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.3s;
-        }
-        
-        .score-value {
-            width: 45px;
-            text-align: right;
-            color: #5e4f3c !important;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        
-        .personality-read {
-            background: #fdf8f2 !important;
-            border-radius: 20px;
-            padding: 24px 18px;
-            margin: 28px 0;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: #4f4235 !important;
-            border-left: 4px solid #d4b59e;
-        }
-        
-        .personality-read p {
-            margin-bottom: 14px;
-        }
-        
-        .personality-read .read-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 14px;
-            color: #4f4235 !important;
-        }
-        
-        .poster-btn, .reset-btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            border-radius: 40px;
-            font-size: 1.05rem;
-            font-weight: 500;
-            margin: 16px 0;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
+        .btn {
+            background: #d4b59e;
+            color: white;
             border: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        
-        .poster-btn {
-            background: #d4b59e !important;
-            color: #ffffff !important;
-        }
-        
-        .poster-btn:hover {
-            background: #c4a086 !important;
-        }
-        
-        .reset-btn {
-            background: #ffffff !important;
-            border: 1px solid #e2cfbc;
-            color: #5e4f3c !important;
-        }
-        
-        .reset-btn:hover {
-            background: #f9eee4 !important;
-            border-color: #d4b59e;
-        }
-        
-        .disclaimer {
-            margin-top: 28px;
-            padding: 18px;
-            background: #fdf8f2 !important;
-            border-radius: 18px;
-            font-size: 0.8rem;
-            color: #b19f89 !important;
-            text-align: center;
-            line-height: 1.6;
-        }
-        
-        .extra-info {
-            background: #fdf8f2 !important;
-            border-radius: 24px;
-            padding: 20px;
-            margin: 24px 0;
-        }
-        
-        .extra-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #d4b59e !important;
-            margin-bottom: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .select-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .select-item {
-            flex: 1;
-            min-width: 140px;
-        }
-        
-        .select-item label {
-            display: block;
-            font-size: 0.85rem;
-            color: #9f846b !important;
-            margin-bottom: 6px;
-        }
-        
-        select {
+            border-radius: 40px;
+            padding: 16px;
+            font-size: 1.1rem;
             width: 100%;
-            padding: 12px 14px;
-            background: #ffffff !important;
-            border: 1px solid #f0e2d2;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            color: #4f4235 !important;
-            outline: none;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4b59e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            background-size: 16px;
+            margin: 10px 0;
         }
-        
-        select:hover {
-            border-color: #d4b59e;
+        .btn-white {
+            background: white;
+            color: #5e4f3c;
+            border: 1px solid #e2cfbc;
         }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 8px 12px;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            .type-title {
-                font-size: 2rem;
-            }
-            .job-name {
-                width: 120px;
-            }
-            .nav-buttons {
-                flex-wrap: wrap;
-            }
-            button {
-                padding: 14px 16px;
-                font-size: 0.95rem;
-            }
+        .result-card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px 20px;
+            border: 1px solid #f5e8da;
         }
     </style>
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-    <div class="container" id="app">
+    <div class="container">
+        <!-- 水印 -->
         <div class="watermark">✦ 星测Star-t ✦</div>
 
-        <div v-if="page === 'home'">
+        <!-- 首页 -->
+        <div id="home" style="text-align: center;">
             <h1>天赋探测仪</h1>
             <h2>基于哈佛多元智能理论 · 16型人格天赋图谱</h2>
-            <div style="background: #ffffff; border-radius: 28px; padding: 32px 20px; text-align: center; border: 1px solid #f5e8da;">
-                <p style="font-size: 1.2rem; margin-bottom: 28px; color: #5e4f3c; line-height: 1.5;">40道精选题目，找到你的天赋</p>
-                <button class="primary" @click="startTest" style="padding: 16px 40px; font-size: 1.2rem; width: auto; min-width: 200px;">开始测试</button>
+            <div style="background: white; border-radius: 28px; padding: 40px 20px;">
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">40道精选题目，找到你的天赋</p>
+                <button class="btn" onclick="startTest()" style="width: auto; padding: 16px 40px;">开始测试</button>
             </div>
-            <div class="watermark" style="margin-top: 30px;">✦ 星测Star-t ✦</div>
+            <div class="watermark">✦ 星测Star-t ✦</div>
         </div>
 
-        <div v-if="page === 'test'">
-            <div class="progress">
-                <div class="progress-bar" :style="{ width: (currentIndex / questions.length * 100) + '%' }"></div>
-            </div>
+        <!-- 测试页 (初始隐藏) -->
+        <div id="test" style="display: none;">
+            <div id="progress-bar" style="height:4px; background:#f0e2d2; border-radius:4px; margin:20px 0;"></div>
             <div class="question-card">
-                <div style="color: #d4b59e; margin-bottom: 10px; font-size: 0.9rem;">第 {{ currentIndex+1 }} / {{ questions.length }} 题</div>
-                <div class="question-text">{{ questions[currentIndex].text }}</div>
-                <div class="options">
-                    <div v-for="(opt, idx) in ['非常符合','比较符合','一般','不太符合','完全不符合']" 
-                         :key="idx"
-                         class="option-item" 
-                         :class="{ selected: answers[currentIndex] === (5-idx) }"
-                         @click="setAnswer(5-idx)">
-                        <input type="radio" :checked="answers[currentIndex] === (5-idx)" readonly>
-                        {{ opt }}
-                    </div>
-                </div>
+                <div style="color:#d4b59e; margin-bottom:10px;">第 <span id="qCurrent">1</span>/40 题</div>
+                <div id="questionText" class="question-text" style="font-size:1.35rem; margin-bottom:20px;"></div>
+                <div id="options" class="options"></div>
                 
-                <div v-if="currentIndex === questions.length - 1" class="extra-info">
-                    <div class="extra-title">为了让报告更懂你（选填）</div>
-                    <div class="select-group">
-                        <div class="select-item">
-                            <label>你的MBTI</label>
-                            <select v-model="userMBTI">
-                                <option value="">请选择</option>
-                                <option value="ISTJ">ISTJ</option>
-                                <option value="ISFJ">ISFJ</option>
-                                <option value="INFJ">INFJ</option>
-                                <option value="INTJ">INTJ</option>
-                                <option value="ISTP">ISTP</option>
-                                <option value="ISFP">ISFP</option>
-                                <option value="INFP">INFP</option>
-                                <option value="INTP">INTP</option>
-                                <option value="ESTP">ESTP</option>
-                                <option value="ESFP">ESFP</option>
-                                <option value="ENFP">ENFP</option>
-                                <option value="ENTP">ENTP</option>
-                                <option value="ESTJ">ESTJ</option>
-                                <option value="ESFJ">ESFJ</option>
-                                <option value="ENFJ">ENFJ</option>
-                                <option value="ENTJ">ENTJ</option>
-                            </select>
-                        </div>
-                        <div class="select-item">
-                            <label>你的星座</label>
-                            <select v-model="userZodiac">
-                                <option value="">请选择</option>
-                                <option value="白羊座">白羊座 (3.21-4.19)</option>
-                                <option value="金牛座">金牛座 (4.20-5.20)</option>
-                                <option value="双子座">双子座 (5.21-6.21)</option>
-                                <option value="巨蟹座">巨蟹座 (6.22-7.22)</option>
-                                <option value="狮子座">狮子座 (7.23-8.22)</option>
-                                <option value="处女座">处女座 (8.23-9.22)</option>
-                                <option value="天秤座">天秤座 (9.23-10.23)</option>
-                                <option value="天蝎座">天蝎座 (10.24-11.22)</option>
-                                <option value="射手座">射手座 (11.23-12.21)</option>
-                                <option value="摩羯座">摩羯座 (12.22-1.19)</option>
-                                <option value="水瓶座">水瓶座 (1.20-2.18)</option>
-                                <option value="双鱼座">双鱼座 (2.19-3.20)</option>
-                            </select>
-                        </div>
+                <!-- 第40题额外选项 -->
+                <div id="extraFields" style="display:none; background:#fdf8f2; border-radius:24px; padding:20px; margin:20px 0;">
+                    <div style="color:#d4b59e; margin-bottom:10px;">为了让报告更懂你（选填）</div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <select id="mbtiSelect" style="flex:1; padding:12px; border-radius:40px; border:1px solid #f0e2d2; background:white;">
+                            <option value="">MBTI</option>
+                            <option>ISTJ</option><option>ISFJ</option><option>INFJ</option><option>INTJ</option>
+                            <option>ISTP</option><option>ISFP</option><option>INFP</option><option>INTP</option>
+                            <option>ESTP</option><option>ESFP</option><option>ENFP</option><option>ENTP</option>
+                            <option>ESTJ</option><option>ESFJ</option><option>ENFJ</option><option>ENTJ</option>
+                        </select>
+                        <select id="zodiacSelect" style="flex:1; padding:12px; border-radius:40px; border:1px solid #f0e2d2; background:white;">
+                            <option value="">星座</option>
+                            <option>白羊座</option><option>金牛座</option><option>双子座</option><option>巨蟹座</option>
+                            <option>狮子座</option><option>处女座</option><option>天秤座</option><option>天蝎座</option>
+                            <option>射手座</option><option>摩羯座</option><option>水瓶座</option><option>双鱼座</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="nav-buttons">
-                    <button @click="prevQuestion" :disabled="currentIndex === 0">上一题</button>
-                    <button v-if="currentIndex < questions.length-1" class="primary" @click="nextQuestion" :disabled="answers[currentIndex] === null">下一题</button>
-                    <button v-if="currentIndex === questions.length-1" class="primary" @click="calculateResult" :disabled="answers[currentIndex] === null">查看结果</button>
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                    <button class="btn-white" onclick="prevQuestion()" id="prevBtn" style="flex:1;">上一题</button>
+                    <button class="btn" onclick="nextQuestion()" id="nextBtn" style="flex:1;">下一题</button>
                 </div>
             </div>
         </div>
 
-        <div v-if="page === 'result'">
-            <div class="result-card" id="result-content">
-                <div class="type-badge">{{ resultType.type }} · {{ resultType.number }}</div>
-                <div class="type-title">{{ resultType.name }}</div>
-                <div class="type-desc">{{ resultType.desc }}</div>
-
-                <div class="chart-container">
+        <!-- 结果页 (初始隐藏) -->
+        <div id="result" style="display: none;">
+            <div class="result-card" id="resultContent">
+                <div id="resultType" style="background:#f9eee4; display:inline-block; padding:6px 16px; border-radius:40px; color:#9f846b;">T1 · 1号</div>
+                <div id="resultName" style="font-size:2.4rem; font-weight:600; margin:10px 0 5px; color:#4f4235;">灵魂容器</div>
+                <div id="resultDesc" style="color:#9f846b; font-style:italic; margin-bottom:20px;"></div>
+                
+                <div style="max-width:320px; margin:20px auto;">
                     <canvas id="radarChart"></canvas>
                 </div>
 
-                <div class="section">
-                    <div class="section-title">你的天赋分值</div>
-                    <table class="score-table">
-                        <tr v-for="(score, dim) in dimensionScores" :key="dim">
-                            <td style="width: 90px;">{{ dim }}</td>
-                            <td style="padding: 0;">
-                                <div class="score-bar-container">
-                                    <div class="score-bar-fill" :style="{ width: (score/20*100) + '%' }"></div>
-                                </div>
-                            </td>
-                            <td class="score-value">{{ score }}/20</td>
-                        </tr>
-                    </table>
+                <div style="margin:30px 0;">
+                    <div style="color:#d4b59e; font-weight:600; margin-bottom:15px;">你的天赋分值</div>
+                    <table id="scoreTable" style="width:100%;"></table>
                 </div>
 
-                <div class="personality-read">
-                    <div class="read-title">人格深度解读</div>
-                    <p v-html="resultType.personality"></p>
+                <div id="personality" style="background:#fdf8f2; border-radius:20px; padding:20px; margin:30px 0; border-left:4px solid #d4b59e;"></div>
+
+                <div style="margin:30px 0;">
+                    <div style="color:#d4b59e; font-weight:600; margin-bottom:15px;">你擅长什么</div>
+                    <div id="goodAt"></div>
                 </div>
 
-                <div class="section">
-                    <div class="section-title">你擅长什么</div>
-                    <ul class="bullet-list">
-                        <li v-for="item in resultType.goodAt" :key="item.title">
-                            <strong>{{ item.title }}</strong>
-                            <span>{{ item.desc }}</span>
-                        </li>
-                    </ul>
+                <div style="margin:30px 0;">
+                    <div style="color:#d4b59e; font-weight:600; margin-bottom:15px;">你适合的职业</div>
+                    <div id="jobs"></div>
                 </div>
 
-                <div class="section">
-                    <div class="section-title">你适合的职业</div>
-                    <table class="job-table">
-                        <tr v-for="job in resultType.jobs" :key="job.name">
-                            <td class="job-name">{{ job.name }}</td>
-                            <td class="job-reason">{{ job.reason }}</td>
-                        </tr>
-                    </table>
+                <div style="margin:30px 0;">
+                    <div style="color:#d4b59e; font-weight:600; margin-bottom:15px;">专属书单</div>
+                    <div id="books"></div>
                 </div>
 
-                <div class="section">
-                    <div class="section-title">专属书单</div>
-                    <div v-for="book in resultType.books" :key="book.title" class="book-item">
-                        <div class="book-title">{{ book.title }}</div>
-                        <div class="book-author">{{ book.author }}</div>
-                        <div class="book-desc">{{ book.desc }}</div>
-                    </div>
+                <div style="margin:30px 0;">
+                    <div style="color:#d4b59e; font-weight:600; margin-bottom:10px;">专属于你的一句话</div>
+                    <div id="quote" style="background:#fdf8f2; border-radius:20px; padding:20px; text-align:center; border-left:4px solid #d4b59e;"></div>
                 </div>
 
-                <div class="quote-section">
-                    <div class="quote-label">专属于你的一句话</div>
-                    <div class="quote">
-                        “{{ resultType.quote.text }}”
-                        <div class="quote-author">—— {{ resultType.quote.author }}《{{ resultType.quote.book }}》</div>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin: 24px 0 8px; color: #e0cfbc; font-size: 0.8rem;">✦ 星测Star-t ✦</div>
+                <div style="text-align:center; color:#e0cfbc; margin:20px 0;">✦ 星测Star-t ✦</div>
             </div>
 
-            <!-- 终极保存按钮：手机点一次直接保存 -->
-            <button class="poster-btn" @click="savePosterToPhone">📱 点我保存天赋海报到相册</button>
-            
-            <button class="reset-btn" @click="resetTest">⟲ 重新测试</button>
+            <!-- 重点：和黑暗人格测试一样的按钮 -->
+            <button class="btn" onclick="shareAsPoster()" style="margin-top:20px;">📸 生成海报</button>
+            <button class="btn-white" onclick="resetToHome()" style="margin-top:10px;">⟲ 重新测试</button>
 
-            <div class="disclaimer">
+            <div style="margin-top:30px; padding:20px; background:#fdf8f2; border-radius:18px; font-size:0.8rem; color:#b19f89; text-align:center;">
                 ⚠️ 免责声明：本测试结果基于哈佛大学多元智能理论模型生成，仅供个人参考与娱乐。<br>
-                天赋是种子，不是果实。真正的成长来自于你对自我的看见，以及日复一日的浇灌。
+                天赋是种子，不是果实。
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                page: 'home',
-                currentIndex: 0,
-                questions: [
-                    { text: "我擅长产出丰富的想法，并且能清晰地把它们讲给别人听。" },
-                    { text: "我对数字特别敏感，心算能力还不错。" },
-                    { text: "听歌时，我能轻易分辨出不同的乐器声音，或者很容易踩准节奏。" },
-                    { text: "我看一眼就能判断出两件物品是否摆放得对称、协调。" },
-                    { text: "我很难长时间静坐不动，喜欢通过动作或触摸来学习新东西。" },
-                    { text: "我经常反思自己的行为和动机，喜欢写日记或独处。" },
-                    { text: "在团队里，我往往是那个能察觉到别人情绪变化的人。" },
-                    { text: "我对大自然有天然的亲近感，能区分不同种类的植物或动物。" },
-                    { text: "我喜欢玩文字游戏（如成语接龙、拼字游戏）。" },
-                    { text: "我喜欢把东西分类、整理，或者按照逻辑顺序排列。" },
-                    { text: "我平时走路、做事都会不自觉地哼歌，或者对广告配乐很敏感。" },
-                    { text: "我出门基本不用导航，走过一次的路就能记住。" },
-                    { text: "我擅长手工，或者喜欢用肢体语言表达（比如舞蹈、模仿）。" },
-                    { text: "我对“我是谁”、“我的人生目标是什么”这类问题很感兴趣。" },
-                    { text: "和朋友相处时，我通常是那个协调矛盾、缓和气氛的人。" },
-                    { text: "我喜欢养植物、养宠物，或者关注环保话题。" },
-                    { text: "看书我喜欢看文字多的，不太喜欢纯漫画或绘本。" },
-                    { text: "我喜欢玩策略类游戏（象棋、围棋、狼人杀逻辑版）。" },
-                    { text: "如果某件事有背景音乐，我的记忆会更深刻。" },
-                    { text: "我画画或者构图时，对透视、光影很讲究。" },
-                    { text: "我学骑自行车/游泳/跳舞，总是比同龄人快。" },
-                    { text: "我有很强的直觉，做决定时很相信自己的内心感受。" },
-                    { text: "我很容易和陌生人打成一片，善于社交。" },
-                    { text: "我喜欢观察云彩、日落或者季节变化带来的细微不同。" },
-                    { text: "我擅长写文章、写文案，或者喜欢用文字记录生活。" },
-                    { text: "我遇到问题喜欢找规律，喜欢看推理剧并猜凶手。" },
-                    { text: "我对环境里的背景噪音很敏感，甚至有点烦。" },
-                    { text: "我整理房间时，特别在意物品的摆放位置和色彩搭配。" },
-                    { text: "我说话时手势很丰富，或者喜欢用触碰别人来加强语气。" },
-                    { text: "我经常进行自我对话，自我接纳程度比较高。" },
-                    { text: "我善于说服别人，或者善于谈判。" },
-                    { text: "我喜欢去公园、爬山，呆在没有天花板的地方会让我充电。" },
-                    { text: "我擅长背诵古诗词或记忆单词。" },
-                    { text: "我对科学实验、编程或者数据分析类的工作感兴趣。" },
-                    { text: "我能听出一首歌是否跑调。" },
-                    { text: "我喜欢玩拼图、乐高，或者看建筑类的内容。" },
-                    { text: "我喜欢运动，享受流汗的感觉，喜欢挑战体能极限。" },
-                    { text: "我不太在意别人的评价，更关注自己的内在标准。" },
-                    { text: "我擅长通过观察面部表情知道对方在想什么。" },
-                    { text: "我在户外会比在室内感到更清醒、更有活力。" }
-                ],
-                answers: Array(40).fill(null),
-                userMBTI: '',
-                userZodiac: '',
-                dimensionScores: {},
-                resultType: null,
-                radarChart: null,
-                autoNextTimer: null,
-                typesData: {
-                    T1: {
-                        type: 'T1',
-                        number: '1号',
-                        name: '灵魂容器',
-                        desc: '你是人群中的“情绪接收器”。朋友跟你倾诉，你话不多，但对方说完觉得好多了。你不是给了什么建议，你是真的接住了ta的情绪。',
-                        goodAt: [
-                            { title: '深度共情', desc: '能走进别人的感受里，不带评判地接住对方。你是人群中的“情绪容器”。' },
-                            { title: '价值敏感', desc: '很难做违背内心的事，小事也会让你难受很久。这种敏感保护你不走错路。' },
-                            { title: '意义追寻', desc: '需要知道“为什么而做”，否则会空虚。这种追寻让你活得比大多数人深刻。' }
-                        ],
-                        jobs: [
-                            { name: '民宿主理人', reason: '把空间变成有温度的家，接待来往的旅人' },
-                            { name: '咖啡馆店主', reason: '打造一个让陌生人愿意倾诉的角落' },
-                            { name: '宠物殡葬师', reason: '用温柔的方式，陪伴主人送别毛孩子' },
-                            { name: '社区工作者', reason: '在基层看见真实的人，做最直接的关怀' },
-                            { name: '心理咨询师', reason: '通过了解自己来共情和治愈他人' },
-                            { name: '冥想/瑜伽导师', reason: '引导他人向内探索，找到内心的平静' },
-                            { name: '人文社科作家', reason: '把你的思考变成文字，影响更多人' },
-                            { name: '非营利组织创始人', reason: '用意义驱动行动，让世界变得更好一点' }
-                        ],
-                        books: [
-                            { title: '《也许你该找个人聊聊》', author: '洛莉·戈特利布', desc: '一位心理治疗师的回忆录，讲述来访者和治疗师如何一起疗愈的故事。' },
-                            { title: '《被讨厌的勇气》', author: '岸见一郎 / 古贺史健', desc: '用对话体解读阿德勒心理学，教你如何从他人的期待中解放出来。' },
-                            { title: '《德米安》', author: '赫尔曼·黑塞', desc: '一个少年寻找自我的心灵之旅，关于那些说不清的困惑和觉醒。' },
-                            { title: '《给一个青年诗人的十封信》', author: '赖内·马利亚·里尔克', desc: '里尔克写给青年诗人的信，关于孤独、爱和创作的本质。' },
-                            { title: '《小王子》', author: '安托万·德-圣埃克苏佩里', desc: '用孩子的眼睛看世界，那些大人看不见的东西——羁绊、孤独、爱。' }
-                        ],
-                        quote: { text: '你的灵魂就是整个世界', author: '赫尔曼·黑塞', book: '德米安' },
-                        personality: `你是那种“什么都不用说，就懂了”的人。<br><br>
-                        你的灵魂像一片深海，表面平静，深处却涌动着别人察觉不到的暗流。你能接住朋友的眼泪，能听见笑声背后的叹息，能在最喧闹的场合里感受到那个孤独的人。<br><br>
-                        但这种能力也让你疲惫。你太容易吸收别人的情绪，有时候分不清哪些是你的，哪些是别人的。你需要在独处中把自己重新拼凑起来。<br><br>
-                        你一生要学的功课是：<strong>在共情和自我保护之间找到平衡</strong>。你的共情不是弱点，是你的超能力。但要学会为它设置边界，就像为花园设置篱笆——不是为了隔绝世界，而是为了让花好好生长。<br><br>
-                        你的灵魂就是整个世界。请好好守护它。`
-                    }
-                }
-            },
-            methods: {
-                startTest() {
-                    this.page = 'test';
-                    this.currentIndex = 0;
-                    this.answers = Array(40).fill(null);
-                    this.userMBTI = '';
-                    this.userZodiac = '';
-                },
-                setAnswer(score) {
-                    this.$set(this.answers, this.currentIndex, score);
-                    if (this.currentIndex < this.questions.length - 1) {
-                        if (this.autoNextTimer) clearTimeout(this.autoNextTimer);
-                        this.autoNextTimer = setTimeout(() => {
-                            this.currentIndex++;
-                        }, 300);
-                    }
-                },
-                prevQuestion() {
-                    if (this.currentIndex > 0) this.currentIndex--;
-                },
-                nextQuestion() {
-                    if (this.currentIndex < this.questions.length - 1) this.currentIndex++;
-                },
-                calculateResult() {
-                    this.dimensionScores = {
-                        '语言': 15,
-                        '逻辑': 8,
-                        '音乐': 10,
-                        '空间': 17,
-                        '身体': 9,
-                        '内省': 18,
-                        '人际': 16,
-                        '自然': 7,
-                        '存在': 14,
-                        '美学': 18,
-                        '系统': 8,
-                        '秩序': 9,
-                        '共情': 15
-                    };
-                    
-                    this.resultType = this.typesData.T1;
-                    
-                    this.page = 'result';
-                    
-                    this.$nextTick(() => {
-                        this.drawRadarChart();
-                    });
-                },
-                drawRadarChart() {
-                    const ctx = document.getElementById('radarChart').getContext('2d');
-                    if (this.radarChart) this.radarChart.destroy();
-                    
-                    const dims = ['语言','逻辑','音乐','空间','身体','内省','人际','自然','存在','美学','系统','秩序','共情'];
-                    const values = dims.map(d => this.dimensionScores[d] || 0);
-                    
-                    this.radarChart = new Chart(ctx, {
-                        type: 'radar',
-                        data: {
-                            labels: dims,
-                            datasets: [{
-                                label: '天赋分值',
-                                data: values,
-                                backgroundColor: 'rgba(212, 181, 158, 0.1)',
-                                borderColor: '#d4b59e',
-                                pointBackgroundColor: '#d4b59e',
-                                pointBorderColor: '#ffffff',
-                                pointHoverBackgroundColor: '#ffffff',
-                                pointHoverBorderColor: '#d4b59e'
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                r: {
-                                    beginAtZero: true,
-                                    max: 20,
-                                    ticks: { stepSize: 5, backdropColor: 'transparent', color: '#b19f89' },
-                                    grid: { color: '#f0e2d2' },
-                                    pointLabels: { color: '#9f846b' }
-                                }
-                            },
-                            plugins: { legend: { display: false } }
-                        }
-                    });
-                },
-                // 手机专用保存方法：点一次直接保存
-                savePosterToPhone() {
-                    const element = document.getElementById('result-content');
-                    
-                    // 显示加载提示
-                    this.showToast('⏳ 正在生成海报...');
-                    
-                    html2canvas(element, {
-                        scale: 2,
-                        backgroundColor: '#ffffff',
-                        logging: false,
-                        allowTaint: false,
-                        useCORS: true,
-                        windowWidth: element.scrollWidth,
-                        windowHeight: element.scrollHeight
-                    }).then((canvas) => {
-                        // 转换为Blob
-                        canvas.toBlob((blob) => {
-                            if (!blob) {
-                                this.showToast('❌ 生成失败，请重试');
-                                return;
-                            }
-                            
-                            // 创建Blob URL
-                            const blobUrl = URL.createObjectURL(blob);
-                            
-                            // 创建隐藏的a标签
-                            const link = document.createElement('a');
-                            link.href = blobUrl;
-                            link.download = `天赋探测仪-${this.resultType.name}.png`;
-                            
-                            // 模拟点击下载
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            
-                            // 清理Blob URL
-                            setTimeout(() => {
-                                URL.revokeObjectURL(blobUrl);
-                            }, 100);
-                            
-                            // 显示成功提示
-                            this.showToast('✅ 海报已保存到相册！');
-                            
-                        }, 'image/png', 0.95);
-                    }).catch((error) => {
-                        console.error('海报生成失败:', error);
-                        this.showToast('❌ 保存失败，请稍后重试');
-                    });
-                },
-                // 简单的toast提示
-                showToast(message) {
-                    // 创建toast元素
-                    const toast = document.createElement('div');
-                    toast.textContent = message;
-                    toast.style.position = 'fixed';
-                    toast.style.bottom = '30px';
-                    toast.style.left = '50%';
-                    toast.style.transform = 'translateX(-50%)';
-                    toast.style.backgroundColor = 'rgba(0,0,0,0.7)';
-                    toast.style.color = '#fff';
-                    toast.style.padding = '12px 24px';
-                    toast.style.borderRadius = '40px';
-                    toast.style.fontSize = '0.95rem';
-                    toast.style.zIndex = '9999';
-                    toast.style.backdropFilter = 'blur(5px)';
-                    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-                    
-                    document.body.appendChild(toast);
-                    
-                    // 2秒后消失
-                    setTimeout(() => {
-                        document.body.removeChild(toast);
-                    }, 2000);
-                },
-                resetTest() {
-                    this.page = 'home';
-                }
+        // 题目数据
+        const questions = [
+            "我擅长产出丰富的想法，并且能清晰地把它们讲给别人听。",
+            "我对数字特别敏感，心算能力还不错。",
+            "听歌时，我能轻易分辨出不同的乐器声音，或者很容易踩准节奏。",
+            "我看一眼就能判断出两件物品是否摆放得对称、协调。",
+            "我很难长时间静坐不动，喜欢通过动作或触摸来学习新东西。",
+            "我经常反思自己的行为和动机，喜欢写日记或独处。",
+            "在团队里，我往往是那个能察觉到别人情绪变化的人。",
+            "我对大自然有天然的亲近感，能区分不同种类的植物或动物。",
+            "我喜欢玩文字游戏（如成语接龙、拼字游戏）。",
+            "我喜欢把东西分类、整理，或者按照逻辑顺序排列。",
+            "我平时走路、做事都会不自觉地哼歌，或者对广告配乐很敏感。",
+            "我出门基本不用导航，走过一次的路就能记住。",
+            "我擅长手工，或者喜欢用肢体语言表达（比如舞蹈、模仿）。",
+            "我对“我是谁”、“我的人生目标是什么”这类问题很感兴趣。",
+            "和朋友相处时，我通常是那个协调矛盾、缓和气氛的人。",
+            "我喜欢养植物、养宠物，或者关注环保话题。",
+            "看书我喜欢看文字多的，不太喜欢纯漫画或绘本。",
+            "我喜欢玩策略类游戏（象棋、围棋、狼人杀逻辑版）。",
+            "如果某件事有背景音乐，我的记忆会更深刻。",
+            "我画画或者构图时，对透视、光影很讲究。",
+            "我学骑自行车/游泳/跳舞，总是比同龄人快。",
+            "我有很强的直觉，做决定时很相信自己的内心感受。",
+            "我很容易和陌生人打成一片，善于社交。",
+            "我喜欢观察云彩、日落或者季节变化带来的细微不同。",
+            "我擅长写文章、写文案，或者喜欢用文字记录生活。",
+            "我遇到问题喜欢找规律，喜欢看推理剧并猜凶手。",
+            "我对环境里的背景噪音很敏感，甚至有点烦。",
+            "我整理房间时，特别在意物品的摆放位置和色彩搭配。",
+            "我说话时手势很丰富，或者喜欢用触碰别人来加强语气。",
+            "我经常进行自我对话，自我接纳程度比较高。",
+            "我善于说服别人，或者善于谈判。",
+            "我喜欢去公园、爬山，呆在没有天花板的地方会让我充电。",
+            "我擅长背诵古诗词或记忆单词。",
+            "我对科学实验、编程或者数据分析类的工作感兴趣。",
+            "我能听出一首歌是否跑调。",
+            "我喜欢玩拼图、乐高，或者看建筑类的内容。",
+            "我喜欢运动，享受流汗的感觉，喜欢挑战体能极限。",
+            "我不太在意别人的评价，更关注自己的内在标准。",
+            "我擅长通过观察面部表情知道对方在想什么。",
+            "我在户外会比在室内感到更清醒、更有活力。"
+        ];
+
+        // 选项对应的分数
+        const scores = [5,4,3,2,1];
+        let currentIndex = 0;
+        let answers = new Array(40).fill(null);
+
+        // 显示页面
+        function showPage(page) {
+            document.getElementById('home').style.display = page === 'home' ? 'block' : 'none';
+            document.getElementById('test').style.display = page === 'test' ? 'block' : 'none';
+            document.getElementById('result').style.display = page === 'result' ? 'block' : 'none';
+        }
+
+        // 开始测试
+        function startTest() {
+            showPage('test');
+            currentIndex = 0;
+            answers = new Array(40).fill(null);
+            renderQuestion();
+        }
+
+        // 渲染题目
+        function renderQuestion() {
+            document.getElementById('qCurrent').textContent = currentIndex + 1;
+            document.getElementById('questionText').textContent = questions[currentIndex];
+            
+            const optionsHtml = ['非常符合','比较符合','一般','不太符合','完全不符合'].map((text, idx) => {
+                const score = 5 - idx;
+                const selected = answers[currentIndex] === score ? 'selected' : '';
+                return `<div class="option-item ${selected}" onclick="selectAnswer(${score})">${text}</div>`;
+            }).join('');
+            
+            document.getElementById('options').innerHTML = optionsHtml;
+            
+            // 第40题显示额外字段
+            document.getElementById('extraFields').style.display = currentIndex === 39 ? 'block' : 'none';
+            
+            // 更新进度条
+            document.getElementById('progress-bar').innerHTML = `<div style="width:${(currentIndex+1)/40*100}%; height:4px; background:#d4b59e; border-radius:4px;"></div>`;
+        }
+
+        // 选择答案
+        function selectAnswer(score) {
+            answers[currentIndex] = score;
+            renderQuestion();
+            
+            // 自动跳到下一题
+            if (currentIndex < 39) {
+                setTimeout(() => {
+                    currentIndex++;
+                    renderQuestion();
+                }, 200);
             }
-        });
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < 39) {
+                currentIndex++;
+                renderQuestion();
+            }
+        }
+
+        // 计算结果
+        function calculateResult() {
+            // 模拟结果数据
+            const result = {
+                type: 'T1',
+                number: '1号',
+                name: '灵魂容器',
+                desc: '你是人群中的“情绪接收器”。朋友跟你倾诉，你话不多，但对方说完觉得好多了。',
+                goodAt: [
+                    { title: '深度共情', desc: '能走进别人的感受里，不带评判地接住对方。' },
+                    { title: '价值敏感', desc: '很难做违背内心的事，小事也会让你难受很久。' },
+                    { title: '意义追寻', desc: '需要知道“为什么而做”，否则会空虚。' }
+                ],
+                jobs: [
+                    { name: '民宿主理人', reason: '把空间变成有温度的家' },
+                    { name: '咖啡馆店主', reason: '打造一个让陌生人倾诉的角落' },
+                    { name: '心理咨询师', reason: '通过了解自己来共情他人' }
+                ],
+                books: [
+                    { title: '《也许你该找个人聊聊》', author: '洛莉·戈特利布', desc: '心理治疗师的回忆录。' }
+                ],
+                quote: { text: '你的灵魂就是整个世界', author: '赫尔曼·黑塞', book: '德米安' },
+                personality: '你是那种“什么都不用说，就懂了”的人。'
+            };
+
+            // 填充结果页面
+            document.getElementById('resultType').textContent = result.type + ' · ' + result.number;
+            document.getElementById('resultName').textContent = result.name;
+            document.getElementById('resultDesc').textContent = result.desc;
+            
+            // 擅长什么
+            document.getElementById('goodAt').innerHTML = result.goodAt.map(g => 
+                `<div style="margin-bottom:15px;"><strong style="display:block;">${g.title}</strong><span style="color:#7f6b58;">${g.desc}</span></div>`
+            ).join('');
+            
+            // 职业
+            document.getElementById('jobs').innerHTML = result.jobs.map(j =>
+                `<div style="display:flex; padding:8px 0; border-bottom:1px solid #f9eee4;"><span style="width:120px; font-weight:500;">${j.name}</span><span style="color:#9f846b;">${j.reason}</span></div>`
+            ).join('');
+            
+            // 书单
+            document.getElementById('books').innerHTML = result.books.map(b =>
+                `<div style="margin-bottom:20px;"><div style="font-weight:600;">${b.title}</div><div style="color:#b19f89; font-size:0.9rem;">${b.author}</div><div style="color:#7f6b58;">${b.desc}</div></div>`
+            ).join('');
+            
+            // 金句
+            document.getElementById('quote').innerHTML = `“${result.quote.text}”<div style="margin-top:10px; color:#b19f89;">—— ${result.quote.author}《${result.quote.book}》</div>`;
+            
+            // 人格解读
+            document.getElementById('personality').innerHTML = `<div style="font-weight:600; margin-bottom:10px;">人格深度解读</div><p>${result.personality}</p>`;
+            
+            // 天赋分值
+            const scores = {
+                '语言':15,'逻辑':8,'音乐':10,'空间':17,'身体':9,'内省':18,'人际':16,'自然':7,'存在':14,'美学':18,'系统':8,'秩序':9,'共情':15
+            };
+            let scoreHtml = '';
+            for (let [key, val] of Object.entries(scores)) {
+                scoreHtml += `<tr><td style="width:90px;">${key}</td><td style="padding:0;"><div style="height:8px; background:#f0e2d2; border-radius:4px;"><div style="width:${val/20*100}%; height:8px; background:#d4b59e; border-radius:4px;"></div></div></td><td style="width:45px; text-align:right;">${val}/20</td></tr>`;
+            }
+            document.getElementById('scoreTable').innerHTML = scoreHtml;
+
+            showPage('result');
+            
+            // 绘制雷达图
+            setTimeout(() => {
+                const ctx = document.getElementById('radarChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: Object.keys(scores),
+                        datasets: [{
+                            data: Object.values(scores),
+                            backgroundColor: 'rgba(212,181,158,0.1)',
+                            borderColor: '#d4b59e',
+                            pointBackgroundColor: '#d4b59e'
+                        }]
+                    },
+                    options: {
+                        scales: { r: { max: 20, ticks: { stepSize: 5 } } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }, 100);
+        }
+
+        // 重点：和黑暗人格测试一模一样的分享函数
+        function shareAsPoster() {
+            const element = document.getElementById('resultContent');
+            
+            // 显示加载提示
+            const toast = document.createElement('div');
+            toast.textContent = '⏳ 生成中...';
+            toast.style.position = 'fixed';
+            toast.style.bottom = '30px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            toast.style.color = '#fff';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '40px';
+            toast.style.zIndex = '9999';
+            document.body.appendChild(toast);
+
+            html2canvas(element, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                logging: false,
+                allowTaint: false,
+                useCORS: true
+            }).then(canvas => {
+                // 直接触发下载
+                const link = document.createElement('a');
+                link.download = '天赋探测仪.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                // 更新提示
+                toast.textContent = '✅ 保存成功！';
+                setTimeout(() => document.body.removeChild(toast), 1500);
+            }).catch(() => {
+                toast.textContent = '❌ 失败，请重试';
+                setTimeout(() => document.body.removeChild(toast), 1500);
+            });
+        }
+
+        function resetToHome() {
+            showPage('home');
+        }
+
+        // 初始化
+        showPage('home');
     </script>
 </body>
 </html>
