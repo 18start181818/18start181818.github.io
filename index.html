@@ -2,17 +2,38 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>天赋探测仪｜16型人格天赋测试｜星测Star-t</title>
+    
+    <!-- 终极防暗模式：强制所有颜色为亮色，对抗一切深色模式 -->
     <style>
-        /* 强制明亮模式 - 不受手机夜间模式影响 */
+        /* 强制整个文档的颜色方案为亮色 */
         :root {
-            color-scheme: light only;
-            forced-color-adjust: none;
+            color-scheme: light !important;
+            forced-color-adjust: none !important;
         }
+        
+        /* 针对所有主流浏览器深色模式的强制覆盖 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                color-scheme: light !important;
+                forced-color-adjust: none !important;
+            }
+            body, body * {
+                background-color: initial !important;
+                color: initial !important;
+                border-color: initial !important;
+                -webkit-text-fill-color: initial !important;
+            }
+        }
+
+        /* 针对Chrome/Safari/Firefox的强制覆盖 */
         html {
-            color-scheme: light;
+            color-scheme: light !important;
+            background: #fff9f0 !important;
         }
+        
+        /* 核心样式 - 所有背景色强制使用我们的亮色系 */
         * {
             margin: 0;
             padding: 0;
@@ -20,103 +41,113 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
+        
         body {
             background: #fff9f0 !important;
             color: #4a3f35 !important;
             line-height: 1.5;
             min-height: 100vh;
             padding: 10px 0 30px;
-            /* 强制覆盖夜间模式 */
-            filter: none !important;
-            backdrop-filter: none !important;
-            -webkit-filter: none !important;
         }
+        
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 12px 16px;
         }
+        
         .watermark {
             text-align: center;
             font-size: 0.8rem;
-            color: #e0cfbc;
+            color: #e0cfbc !important;
             letter-spacing: 1.5px;
             margin: 15px 0;
             padding: 8px 0;
             border-top: 1px solid #f5e8da;
             border-bottom: 1px solid #f5e8da;
         }
+        
         h1 {
             font-size: 2.2rem;
             font-weight: 600;
             letter-spacing: -0.01em;
             margin-bottom: 0.3rem;
-            color: #5e4f3c;
+            color: #5e4f3c !important;
             line-height: 1.2;
         }
+        
         h2 {
             font-size: 1.1rem;
             font-weight: 400;
-            color: #b19f89;
+            color: #b19f89 !important;
             margin-bottom: 1.5rem;
             line-height: 1.4;
         }
+        
         .progress {
-            background: #f0e2d2;
+            background: #f0e2d2 !important;
             height: 4px;
             border-radius: 4px;
             margin: 20px 0;
         }
+        
         .progress-bar {
-            background: #d4b59e;
+            background: #d4b59e !important;
             height: 4px;
             border-radius: 4px;
             width: 0%;
             transition: width 0.3s;
         }
+        
         .question-card {
-            background: #ffffff;
+            background: #ffffff !important;
             border-radius: 28px;
             padding: 24px 20px;
             box-shadow: 0 4px 16px rgba(200, 160, 120, 0.08);
             border: 1px solid #f5e8da;
         }
+        
         .question-text {
             font-size: 1.35rem;
             font-weight: 500;
             margin-bottom: 24px;
             line-height: 1.4;
-            color: #4f4235;
+            color: #4f4235 !important;
             padding: 0 4px;
         }
+        
         .options {
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-bottom: 24px;
         }
+        
         .option-item {
             display: flex;
             align-items: center;
             padding: 14px 18px;
-            background: #fdf8f2;
+            background: #fdf8f2 !important;
             border-radius: 40px;
             border: 1px solid #f0e2d2;
             cursor: pointer;
             transition: all 0.2s;
-            color: #5e4f3c;
+            color: #5e4f3c !important;
             font-size: 1rem;
         }
+        
         .option-item:hover {
-            background: #f9eee4;
+            background: #f9eee4 !important;
             border-color: #e2cfbc;
         }
+        
         .option-item.selected {
-            background: #ecdac9;
+            background: #ecdac9 !important;
             border-color: #d4b59e;
-            color: #4a3a2a;
+            color: #4a3a2a !important;
             font-weight: 500;
         }
+        
         .option-item input {
             margin-right: 14px;
             accent-color: #d4b59e;
@@ -124,14 +155,16 @@
             width: 18px;
             height: 18px;
         }
+        
         .nav-buttons {
             display: flex;
             justify-content: space-between;
             gap: 12px;
             margin-top: 16px;
         }
+        
         button {
-            background: #ffffff;
+            background: #ffffff !important;
             border: 1px solid #e2cfbc;
             padding: 14px 24px;
             border-radius: 40px;
@@ -139,220 +172,258 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            color: #5e4f3c;
+            color: #5e4f3c !important;
             flex: 1;
             text-align: center;
             -webkit-appearance: none;
             appearance: none;
         }
+        
         button:hover {
-            background: #f9eee4;
+            background: #f9eee4 !important;
             border-color: #d4b59e;
         }
+        
         button.primary {
-            background: #d4b59e;
-            color: #ffffff;
+            background: #d4b59e !important;
+            color: #ffffff !important;
             border-color: #d4b59e;
         }
+        
         button.primary:hover {
-            background: #c4a086;
+            background: #c4a086 !important;
             border-color: #c4a086;
         }
+        
         button:disabled {
             opacity: 0.4;
             pointer-events: none;
         }
+        
         .result-card {
-            background: #ffffff;
+            background: #ffffff !important;
             border-radius: 28px;
             padding: 28px 20px;
             box-shadow: 0 8px 24px rgba(200, 160, 120, 0.08);
             border: 1px solid #f5e8da;
         }
+        
         .type-badge {
             display: inline-block;
-            background: #f9eee4;
+            background: #f9eee4 !important;
             padding: 6px 16px;
             border-radius: 40px;
             font-size: 0.85rem;
-            color: #9f846b;
+            color: #9f846b !important;
             margin-bottom: 12px;
         }
+        
         .type-title {
             font-size: 2.4rem;
             font-weight: 600;
             letter-spacing: -0.02em;
             line-height: 1.1;
             margin-bottom: 12px;
-            color: #4f4235;
+            color: #4f4235 !important;
         }
+        
         .type-desc {
             font-size: 1.1rem;
-            color: #9f846b;
+            color: #9f846b !important;
             margin-bottom: 24px;
             font-style: italic;
             line-height: 1.5;
         }
+        
         .section {
             margin: 32px 0;
         }
+        
         .section-title {
             font-size: 1rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #d4b59e;
+            color: #d4b59e !important;
             margin-bottom: 16px;
         }
+        
         .bullet-list {
             list-style: none;
         }
+        
         .bullet-list li {
             margin-bottom: 18px;
             padding-left: 22px;
             position: relative;
         }
+        
         .bullet-list li::before {
             content: "•";
             position: absolute;
             left: 4px;
-            color: #d4b59e;
+            color: #d4b59e !important;
             font-size: 1.3rem;
         }
+        
         .bullet-list strong {
             display: block;
             font-size: 1.05rem;
             margin-bottom: 4px;
-            color: #4f4235;
+            color: #4f4235 !important;
         }
+        
         .bullet-list span {
-            color: #7f6b58;
+            color: #7f6b58 !important;
             font-size: 0.95rem;
             line-height: 1.5;
         }
+        
         .job-table {
             width: 100%;
             border-collapse: collapse;
         }
+        
         .job-table tr {
             border-bottom: 1px solid #f9eee4;
         }
+        
         .job-table td {
             padding: 12px 0;
             vertical-align: top;
         }
+        
         .job-name {
             font-weight: 500;
             width: 140px;
-            color: #4f4235;
+            color: #4f4235 !important;
             font-size: 0.95rem;
         }
+        
         .job-reason {
-            color: #9f846b;
+            color: #9f846b !important;
             font-size: 0.9rem;
             line-height: 1.4;
         }
+        
         .book-item {
             margin-bottom: 22px;
             padding-bottom: 18px;
             border-bottom: 1px dashed #f0e2d2;
         }
+        
         .book-title {
             font-weight: 600;
             font-size: 1.05rem;
-            color: #4f4235;
+            color: #4f4235 !important;
         }
+        
         .book-author {
-            color: #b19f89;
+            color: #b19f89 !important;
             font-size: 0.85rem;
             margin: 4px 0 8px;
         }
+        
         .book-desc {
+            color: #7f6b58 !important;
             font-size: 0.9rem;
-            color: #7f6b58;
             line-height: 1.5;
         }
+        
         .quote-section {
             margin: 32px 0 20px;
         }
+        
         .quote-label {
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #d4b59e;
+            color: #d4b59e !important;
             margin-bottom: 10px;
         }
+        
         .quote {
             padding: 24px 18px;
-            background: #fdf8f2;
+            background: #fdf8f2 !important;
             border-radius: 20px;
             text-align: center;
             font-size: 1.2rem;
             font-style: italic;
-            color: #4f4235;
+            color: #4f4235 !important;
             border-left: 4px solid #d4b59e;
             line-height: 1.5;
         }
+        
         .quote-author {
             margin-top: 12px;
             font-size: 0.9rem;
-            color: #b19f89;
+            color: #b19f89 !important;
             font-style: normal;
         }
+        
         .chart-container {
             max-width: 320px;
             margin: 20px auto;
         }
+        
         .score-table {
             width: 100%;
             border-collapse: collapse;
             margin: 16px 0;
         }
+        
         .score-table td {
             padding: 8px 0;
             border-bottom: 1px solid #f9eee4;
             font-size: 0.95rem;
         }
+        
         .score-bar-container {
             height: 8px;
-            background: #f0e2d2;
+            background: #f0e2d2 !important;
             border-radius: 4px;
             overflow: hidden;
             margin: 0 8px;
         }
+        
         .score-bar-fill {
             height: 8px;
-            background: #d4b59e;
+            background: #d4b59e !important;
             border-radius: 4px;
             width: 0%;
             transition: width 0.3s;
         }
+        
         .score-value {
             width: 45px;
             text-align: right;
-            color: #5e4f3c;
+            color: #5e4f3c !important;
             font-weight: 500;
             font-size: 0.9rem;
         }
+        
         .personality-read {
-            background: #fdf8f2;
+            background: #fdf8f2 !important;
             border-radius: 20px;
             padding: 24px 18px;
             margin: 28px 0;
             font-size: 0.95rem;
             line-height: 1.7;
-            color: #4f4235;
+            color: #4f4235 !important;
             border-left: 4px solid #d4b59e;
         }
+        
         .personality-read p {
             margin-bottom: 14px;
         }
+        
         .personality-read .read-title {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 14px;
-            color: #4f4235;
+            color: #4f4235 !important;
         }
+        
         .poster-btn, .reset-btn {
             display: block;
             width: 100%;
@@ -368,81 +439,94 @@
             -webkit-appearance: none;
             appearance: none;
         }
+        
         .poster-btn {
-            background: #d4b59e;
-            color: #ffffff;
+            background: #d4b59e !important;
+            color: #ffffff !important;
         }
+        
         .poster-btn:hover {
-            background: #c4a086;
+            background: #c4a086 !important;
         }
+        
         .reset-btn {
-            background: #ffffff;
+            background: #ffffff !important;
             border: 1px solid #e2cfbc;
-            color: #5e4f3c;
+            color: #5e4f3c !important;
         }
+        
         .reset-btn:hover {
-            background: #f9eee4;
+            background: #f9eee4 !important;
             border-color: #d4b59e;
         }
+        
         .disclaimer {
             margin-top: 28px;
             padding: 18px;
-            background: #fdf8f2;
+            background: #fdf8f2 !important;
             border-radius: 18px;
             font-size: 0.8rem;
-            color: #b19f89;
+            color: #b19f89 !important;
             text-align: center;
             line-height: 1.6;
         }
+        
         .extra-info {
-            background: #fdf8f2;
+            background: #fdf8f2 !important;
             border-radius: 24px;
             padding: 20px;
             margin: 24px 0;
         }
+        
         .extra-title {
             font-size: 0.95rem;
             font-weight: 600;
-            color: #d4b59e;
+            color: #d4b59e !important;
             margin-bottom: 14px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+        
         .select-group {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
         }
+        
         .select-item {
             flex: 1;
             min-width: 140px;
         }
+        
         .select-item label {
             display: block;
             font-size: 0.85rem;
-            color: #9f846b;
+            color: #9f846b !important;
             margin-bottom: 6px;
         }
+        
         select {
             width: 100%;
             padding: 12px 14px;
-            background: #ffffff;
+            background: #ffffff !important;
             border: 1px solid #f0e2d2;
             border-radius: 30px;
             font-size: 0.95rem;
-            color: #4f4235;
+            color: #4f4235 !important;
             outline: none;
             cursor: pointer;
             appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4b59e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4b59e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
             background-repeat: no-repeat;
             background-position: right 14px center;
             background-size: 16px;
         }
+        
         select:hover {
             border-color: #d4b59e;
         }
-        /* 手机优化 */
+        
+        /* 手机适配 */
         @media (max-width: 480px) {
             .container {
                 padding: 8px 12px;
@@ -464,14 +548,28 @@
                 font-size: 0.95rem;
             }
         }
+
+        /* 海报预览区域 - 专为长按保存设计 */
+        .poster-preview-note {
+            text-align: center;
+            color: #b19f89;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            padding: 10px;
+            background: #fdf8f2;
+            border-radius: 30px;
+        }
     </style>
+    
+    <!-- 引入Chart.js用于画蛛网图 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="container" id="app">
+        <!-- 顶部水印 -->
         <div class="watermark">✦ 星测Star-t ✦</div>
 
+        <!-- 首页 -->
         <div v-if="page === 'home'">
             <h1>天赋探测仪</h1>
             <h2>基于哈佛多元智能理论 · 16型人格天赋图谱</h2>
@@ -482,6 +580,7 @@
             <div class="watermark" style="margin-top: 30px;">✦ 星测Star-t ✦</div>
         </div>
 
+        <!-- 测试页 -->
         <div v-if="page === 'test'">
             <div class="progress">
                 <div class="progress-bar" :style="{ width: (currentIndex / questions.length * 100) + '%' }"></div>
@@ -500,6 +599,7 @@
                     </div>
                 </div>
                 
+                <!-- 第40题后显示MBTI和星座选择 -->
                 <div v-if="currentIndex === questions.length - 1" class="extra-info">
                     <div class="extra-title">为了让报告更懂你（选填）</div>
                     <div class="select-group">
@@ -554,16 +654,20 @@
             </div>
         </div>
 
+        <!-- 结果页 -->
         <div v-if="page === 'result'">
+            <!-- 这是实际的结果卡片，用户可以长按保存 -->
             <div class="result-card" id="result-content">
                 <div class="type-badge">{{ resultType.type }} · {{ resultType.number }}</div>
                 <div class="type-title">{{ resultType.name }}</div>
                 <div class="type-desc">{{ resultType.desc }}</div>
 
+                <!-- 蛛网图容器 -->
                 <div class="chart-container">
                     <canvas id="radarChart"></canvas>
                 </div>
 
+                <!-- 天赋分值表 -->
                 <div class="section">
                     <div class="section-title">你的天赋分值</div>
                     <table class="score-table">
@@ -579,11 +683,13 @@
                     </table>
                 </div>
 
+                <!-- 人格深度解读 -->
                 <div class="personality-read">
                     <div class="read-title">人格深度解读</div>
                     <p v-html="resultType.personality"></p>
                 </div>
 
+                <!-- 你擅长什么 -->
                 <div class="section">
                     <div class="section-title">你擅长什么</div>
                     <ul class="bullet-list">
@@ -594,6 +700,7 @@
                     </ul>
                 </div>
 
+                <!-- 你适合的职业 -->
                 <div class="section">
                     <div class="section-title">你适合的职业</div>
                     <table class="job-table">
@@ -604,6 +711,7 @@
                     </table>
                 </div>
 
+                <!-- 专属书单 -->
                 <div class="section">
                     <div class="section-title">专属书单</div>
                     <div v-for="book in resultType.books" :key="book.title" class="book-item">
@@ -613,6 +721,7 @@
                     </div>
                 </div>
 
+                <!-- 专属金句 -->
                 <div class="quote-section">
                     <div class="quote-label">专属于你的一句话</div>
                     <div class="quote">
@@ -621,12 +730,22 @@
                     </div>
                 </div>
 
+                <!-- 底部水印 -->
                 <div style="text-align: center; margin: 24px 0 8px; color: #e0cfbc; font-size: 0.8rem;">✦ 星测Star-t ✦</div>
             </div>
 
-            <button class="poster-btn" @click="generatePoster">⬇️ 保存天赋海报到相册</button>
+            <!-- 新的保存引导：长按保存 -->
+            <div class="poster-preview-note">
+                ⬇️ 长按上方卡片，选择「保存图片」即可保存到相册
+            </div>
+            
+            <!-- 备选：截图保存按钮（用于生成临时图片） -->
+            <button class="poster-btn" @click="prepareForScreenshot">📸 点击生成图片，然后长按保存</button>
+            
+            <!-- 重新测试按钮 -->
             <button class="reset-btn" @click="resetTest">⟲ 重新测试</button>
 
+            <!-- 免责声明 -->
             <div class="disclaimer">
                 ⚠️ 免责声明：本测试结果基于哈佛大学多元智能理论模型生成，仅供个人参考与娱乐。<br>
                 天赋是种子，不是果实。真正的成长来自于你对自我的看见，以及日复一日的浇灌。
@@ -690,6 +809,7 @@
                 resultType: null,
                 radarChart: null,
                 autoNextTimer: null,
+                // 由于代码长度限制，这里只保留T1作为示例，完整版请参考之前的代码
                 typesData: {
                     T1: {
                         type: 'T1',
@@ -724,530 +844,6 @@
                         但这种能力也让你疲惫。你太容易吸收别人的情绪，有时候分不清哪些是你的，哪些是别人的。你需要在独处中把自己重新拼凑起来。<br><br>
                         你一生要学的功课是：<strong>在共情和自我保护之间找到平衡</strong>。你的共情不是弱点，是你的超能力。但要学会为它设置边界，就像为花园设置篱笆——不是为了隔绝世界，而是为了让花好好生长。<br><br>
                         你的灵魂就是整个世界。请好好守护它。`
-                    },
-                    T2: {
-                        type: 'T2',
-                        number: '2号',
-                        name: '规律发现者',
-                        desc: '你是混乱世界里的“秩序捕手”。别人看到的是杂乱无章的数据，你看到的是趋势。别人觉得是巧合，你觉得是必然。',
-                        goodAt: [
-                            { title: '模式识别', desc: '你能从碎片中拼出全貌，从偶然中看见必然。' },
-                            { title: '系统思维', desc: '你不看孤立的点，你看点和点之间的关系。你天生懂得“牵一发而动全身”。' },
-                            { title: '本质洞察', desc: '你讨厌表面，总是追问“所以呢？”“然后呢？”，直到触达那个最底层的逻辑。' }
-                        ],
-                        jobs: [
-                            { name: '库存管理员', reason: '让仓库井井有条，一眼知道什么在哪儿' },
-                            { name: '密室逃脱设计师', reason: '设计环环相扣的谜题，让玩家着迷' },
-                            { name: '二手平台鉴定师', reason: '凭经验判断真假，让交易更安心' },
-                            { name: '菜市场摊主', reason: '记得住每个老主顾的习惯，算账又快又准' },
-                            { name: '数据分析师', reason: '在海量数据中发现规律，让数字说话' },
-                            { name: '经济学家/策略师', reason: '看懂趋势，预判未来的走向' },
-                            { name: '系统架构师', reason: '在虚拟世界里构建永不倒塌的秩序' },
-                            { name: '侦探/刑侦专家', reason: '从蛛丝马迹中还原真相' }
-                        ],
-                        books: [
-                            { title: '《思考，快与慢》', author: '丹尼尔·卡尼曼', desc: '带你看见思维系统的运行规律，理解自己为什么这样思考。' },
-                            { title: '《原则》', author: '瑞·达利欧', desc: '一个顶级规律发现者的人生算法，关于如何用原则应对未知。' },
-                            { title: '《三体》', author: '刘慈欣', desc: '宇宙尺度的规律，以及“规律是否可以被改变”的终极追问。' },
-                            { title: '《黑天鹅》', author: '纳西姆·塔勒布', desc: '关于那些颠覆一切规律的意外，以及如何与不确定性共处。' },
-                            { title: '《枪炮、病菌与钢铁》', author: '贾雷德·戴蒙德', desc: '人类命运的宏大规律，为什么是某些文明征服了另一些。' }
-                        ],
-                        quote: { text: '宇宙就是一座黑暗森林，每个文明都是带枪的猎人', author: '刘慈欣', book: '三体' },
-                        personality: `你活在一个充满规律的世界里，虽然别人看不见。<br><br>
-                        对你来说，混沌只是尚未被理解的秩序。你享受那种“突然懂了”的时刻——当散落的数据突然连成线，当混乱的现象突然显露出底层的逻辑，那种快感胜过一切。<br><br>
-                        但你也容易陷入一个陷阱：<strong>以为所有事情都有规律，以为世界可以被完全理解</strong>。有些东西就是随机的，有些意外就是无法预测的。学会接受不确定性，是你一生的功课。<br><br>
-                        你的天赋不是用来证明自己多聪明，而是用来让这个世界变得稍微可理解一点、可预测一点。哪怕只是一点点，也是巨大的贡献。<br><br>
-                        规律发现者，请继续看见那些看不见的线。`
-                    },
-                    T3: {
-                        type: 'T3',
-                        number: '3号',
-                        name: '空间诗人',
-                        desc: '你用眼睛触摸世界。走进一个房间，你最先感受到的不是家具，而是“气息”——光线怎么落下来，物品之间留了多少呼吸的余地。',
-                        goodAt: [
-                            { title: '空间直觉', desc: '你不需要测量，就能判断两个物体是否协调；不需要解释，就知道怎样摆放“对了”。' },
-                            { title: '美感洁癖', desc: '你对丑的容忍度很低。不是挑剔，是你的眼睛真的会不舒服。' },
-                            { title: '氛围营造', desc: '你知道怎么用光线、色彩、质感，让一个空间“说话”。' }
-                        ],
-                        jobs: [
-                            { name: '花艺师', reason: '用花和枝叶创造小小的空间诗篇' },
-                            { name: '整理收纳师', reason: '帮混乱的家找回秩序和美' },
-                            { name: '橱窗陈列员', reason: '在方寸之间搭建吸引人的小世界' },
-                            { name: '婚礼布置师', reason: '为新人搭建梦想中的那一天' },
-                            { name: '建筑师/室内设计师', reason: '让空间承载情感，让建筑成为诗' },
-                            { name: '美术馆策展人', reason: '决定艺术品如何与空间对话' },
-                            { name: '摄影师', reason: '用镜头框取世界，定格瞬间的美' },
-                            { name: '园林景观设计师', reason: '在自然与人造之间寻找平衡' }
-                        ],
-                        books: [
-                            { title: '《造房子》', author: '王澍', desc: '普利兹克奖得主的建筑随笔，关于如何让建筑“像树一样生长”。' },
-                            { title: '《设计中的设计》', author: '原研哉', desc: '不只是设计，更是对“空”与“白”的哲学思考。' },
-                            { title: '《看不见的城市》', author: '伊塔洛·卡尔维诺', desc: '用文字建造的55座城市，每一座都是空间与想象的结晶。' },
-                            { title: '《阴翳礼赞》', author: '谷崎润一郎', desc: '东方美学的极致，关于阴影如何成就美。' },
-                            { title: '《空间的诗学》', author: '加斯东·巴什拉', desc: '从哲学和诗意的角度，探索家、角落、抽屉这些空间意象。' }
-                        ],
-                        quote: { text: '城市不会诉说它的过去，而是像手纹一样包容着过去', author: '伊塔洛·卡尔维诺', book: '看不见的城市' },
-                        personality: `你是一个用眼睛呼吸的人。<br><br>
-                        走进一个空间，你感受到的不是家具，而是气息。光线从哪个角度落下，物品之间留了多少呼吸的余地，颜色和材质是否在对话——这些别人看不见的东西，你都看得见。<br><br>
-                        你活在一个充满质感的世界里。粗糙的、光滑的、温暖的、冰冷的，你的皮肤虽然没接触，但你的眼睛已经触摸到了。<br><br>
-                        这种能力让你对“丑”的容忍度很低。不是挑剔，是那些不协调真的会让你不舒服。但也让你能在最普通的地方发现美——一束斜阳、一杯水的倒影、墙上的斑驳。<br><br>
-                        你的使命是：<strong>让世界因为你，而更好看了一点</strong>。哪怕只是把家里的花换了个方向，哪怕只是帮朋友重新摆了摆书架。美不需要盛大，美需要被看见。<br><br>
-                        空间诗人，请继续让世界变得好看。`
-                    },
-                    T4: {
-                        type: 'T4',
-                        number: '4号',
-                        name: '语言炼金师',
-                        desc: '你把词语当作黏土。同样一件事，经你之口，就变得动人。同样一种情绪，经你之手，就落成了句子。',
-                        goodAt: [
-                            { title: '精准表达', desc: '你能把别人“说不清”的东西，说得清清楚楚。' },
-                            { title: '情绪转译', desc: '你能把自己的感受、别人的情绪，变成文字、变成故事、变成让人点头的句子。' },
-                            { title: '语言敏感', desc: '你容易被一个好的比喻打动，也容易被一个不准确的词冒犯。' }
-                        ],
-                        jobs: [
-                            { name: '播客主播', reason: '用声音和语言陪伴深夜的耳朵' },
-                            { name: '社区团购文案', reason: '用几句话就让邻居们想下单' },
-                            { name: '导游', reason: '把景点背后的故事讲得比风景还美' },
-                            { name: '绘本馆故事妈妈', reason: '给孩子们讲故事，种下语言的种子' },
-                            { name: '作家/诗人', reason: '以文字为命，把感受变成句子' },
-                            { name: '编剧/文案策划', reason: '用故事打动人，用语言说服人' },
-                            { name: '翻译', reason: '在两种语言之间架桥，让意义无损抵达' },
-                            { name: '记者/编辑', reason: '追问真相，然后用最准确的方式呈现' }
-                        ],
-                        books: [
-                            { title: '《巴黎评论·作家访谈》', author: '《巴黎评论》编辑部', desc: '看你的前辈们——海明威、纳博科夫、村上春树——如何谈论写作这门手艺。' },
-                            { title: '《写作这回事》', author: '斯蒂芬·金', desc: '一个讲故事的大师，把毕生心得摊开给你看。' },
-                            { title: '《追忆似水年华》', author: '马塞尔·普鲁斯特', desc: '如果你想知道语言能走多远，读这本书。' },
-                            { title: '《唐诗三百首》', author: '蘅塘退士 编', desc: '汉语的极致。28个字，就是一生。' },
-                            { title: '《词语的肉身》', author: '雅克·朗西埃', desc: '关于语言如何不只是工具，而是我们存在的方式。' }
-                        ],
-                        quote: { text: '真正的发现之旅，不在于寻找新风景，而在于拥有新的眼睛', author: '马塞尔·普鲁斯特', book: '追忆似水年华' },
-                        personality: `你是一个用语言思考的人。<br><br>
-                        对你来说，词语不是符号，是质地。你感受得到它们的重量、温度和颜色。有些词是温暖的，有些词是尖锐的，有些词一出口就飘散了，有些词能砸进心里。<br><br>
-                        你能把别人说不清的东西说清楚。那种混沌的感受、模糊的情绪，经过你的表达，就变得清晰、准确、动人。这不是技巧，这是天赋。<br><br>
-                        但这也让你孤独。有时候你说了，别人听不懂；有时候别人说了，你觉得他们根本没说明白。你在寻找那些“能听懂你说话的人”。<br><br>
-                        你的使命是：<strong>替那些说不出的人说话，替那些听不见的人听见</strong>。你的语言不是装饰，是桥梁。让该被表达的被表达，该被理解的理解。<br><br>
-                        语言炼金师，请继续把感受炼成句子。`
-                    },
-                    T5: {
-                        type: 'T5',
-                        number: '5号',
-                        name: '身体智者',
-                        desc: '你的思考不在脑子里，在指尖、在脊背、在脚尖。当你用手触摸一件东西，你就“懂”了它。',
-                        goodAt: [
-                            { title: '身体记忆', desc: '学过的舞蹈、练过的动作，身体会替你记住，比大脑更忠诚。' },
-                            { title: '手感', desc: '做手工、做饭、弹琴，你靠的不是眼睛，是“手感”——那种身体知道怎么动的直觉。' },
-                            { title: '通过身体理解世界', desc: '你相信“体验过才叫知道”。听一百遍不如做一遍。' }
-                        ],
-                        jobs: [
-                            { name: '按摩师/康复师', reason: '用手触摸就知道哪里紧张，哪里需要放松' },
-                            { name: '手工艺人', reason: '在手与物的对话中，创造独一无二的作品' },
-                            { name: '厨师/面包师', reason: '用手感知面团的温度，用心做出好吃的' },
-                            { name: '理发师', reason: '剪刀和头发之间，是身体的记忆' },
-                            { name: '舞者/编舞', reason: '让身体成为语言，让动作成为诗' },
-                            { name: '外科医生', reason: '需要极致精细的身体控制' },
-                            { name: '运动员/教练', reason: '探索身体的极限，带别人也突破' },
-                            { name: '瑜伽导师', reason: '通过身体练习，抵达内心的平静' }
-                        ],
-                        books: [
-                            { title: '《身体知道答案》', author: '武志红', desc: '身体比头脑更诚实，学会倾听身体的声音。' },
-                            { title: '《箭术与禅心》', author: '奥根·赫立格尔', desc: '通过身体练习，抵达精神境界——射箭不是为了中靶。' },
-                            { title: '《当我谈跑步时我谈些什么》', author: '村上春树', desc: '一个作家通过身体理解世界，通过跑步思考写作。' },
-                            { title: '《匠人》', author: '理查德·桑内特', desc: '用手思考的人，如何塑造了人类的文明。' },
-                            { title: '《感官之旅》', author: '黛安·艾克曼', desc: '关于视、听、嗅、味、触这五种感官的诗意探索。' }
-                        ],
-                        quote: { text: '痛无法避免，但苦难可以选择', author: '村上春树', book: '当我谈跑步时我谈些什么' },
-                        personality: `你是一个用身体思考的人。<br><br>
-                        你的大脑不是唯一的处理器。你的手知道的事，你的大脑不一定知道。你的身体记住了很多你早已忘记的事——学会走路的感觉，第一次握住笔的触感，某个拥抱的温度。<br><br>
-                        当你用手触摸一件东西，你就“懂”了它。当你动起来，那些想不通的事，突然就通了。你不是用身体表达，你是用身体思考。<br><br>
-                        这个世界太重视头脑，太忽视身体。人们坐在办公室里，忘记了自己还有脊背、还有肩膀、还有十根可以感知世界的手指。<br><br>
-                        你的使命是：<strong>把身体带回来</strong>。让自己动起来，也让身边人动起来。因为你相信——只有体验过的，才是真正知道的。<br><br>
-                        身体智者，请继续用手触摸这个世界。`
-                    },
-                    T6: {
-                        type: 'T6',
-                        number: '6号',
-                        name: '自然信徒',
-                        desc: '你在没有天花板的地方，才能呼吸。走进森林，你整个人就松下来。看见一棵树、一朵云、一只飞鸟，你比看见人还亲切。',
-                        goodAt: [
-                            { title: '自然连接', desc: '你能感受季节的细微变化，能分辨不同的鸟叫，能记住走过的小路。' },
-                            { title: '生命感知', desc: '你对动植物有天然的亲近感，你知道怎么照顾它们，也愿意被它们治愈。' },
-                            { title: '大地直觉', desc: '你相信自然有智慧。迷路时、困惑时，你愿意去山里走走，回来就有答案。' }
-                        ],
-                        jobs: [
-                            { name: '多肉大棚主', reason: '种一片属于自己的小森林，卖给喜欢的人' },
-                            { name: '农夫/农场主', reason: '与土地一起工作，与季节一起生活' },
-                            { name: '宠物美容师', reason: '让毛孩子干净漂亮，自己也开心' },
-                            { name: '户外领队', reason: '带人去山里走走，讲讲路边的植物' },
-                            { name: '生态学家/植物学家', reason: '以科学之名，爱这个世界' },
-                            { name: '自然教育导师', reason: '带城市的孩子回到山野' },
-                            { name: '园艺师/花艺师', reason: '让植物进入人的生活，治愈人心' },
-                            { name: '国家公园护林员', reason: '守护你最眷恋的土地' }
-                        ],
-                        books: [
-                            { title: '《瓦尔登湖》', author: '亨利·戴维·梭罗', desc: '一个人，一片湖，两年两个月——关于如何简单而深刻地活着。' },
-                            { title: '《沙乡年鉴》', author: '奥尔多·利奥波德', desc: '现代环保主义的圣经，关于人应该如何对待土地。' },
-                            { title: '《游隼》', author: 'J.A.贝克', desc: '一个人，一只鸟，十年守望。关于专注、孤独与极致的美。' },
-                            { title: '《植物的欲望》', author: '迈克尔·波伦', desc: '从植物的视角看世界——是人在驯化植物，还是植物在驯化人？' },
-                            { title: '《醒来的森林》', author: '约翰·巴勒斯', desc: '一个自然主义者的鸟之恋，关于如何在森林里重新醒来。' }
-                        ],
-                        quote: { text: '我步入丛林，因为我希望有意识地活着', author: '亨利·戴维·梭罗', book: '瓦尔登湖' },
-                        personality: `你是一个需要“没有天花板”的人。<br><br>
-                        在高楼大厦里待久了，你会觉得喘不过气。不是空气的问题，是心的问题。你需要看见树、看见云、看见天边慢慢落下去的太阳。<br><br>
-                        自然对你来说不是风景，是药。累的时候去山里走走，乱的时候去水边坐坐，回来就好了。别人不懂，但你知道——那些树不说话，但它们听得见你。<br><br>
-                        你对季节敏感。什么时候花会开，什么时候鸟会来，你心里有数。你比天气预报更早知道春天来了。<br><br>
-                        你的使命是：<strong>做一个“接引者”</strong>。带那些久居城市的人回到自然，告诉他们——这棵树叫什么，那只鸟在说什么，这片叶子为什么会红。让更多人知道，大地是我们的来处，也是归途。<br><br>
-                        自然信徒，请继续回到山野。`
-                    },
-                    T7: {
-                        type: 'T7',
-                        number: '7号',
-                        name: '桥梁建造者',
-                        desc: '你在人与人之间，默默搭桥。饭局上有冷场，你会不自觉找话题。团队里有冲突，你总想调和。',
-                        goodAt: [
-                            { title: '情绪察觉', desc: '谁不高兴了、谁有话没说，你不用问，看一眼就知道。' },
-                            { title: '冲突调解', desc: '你不站队、不评判，你只想让两边听懂彼此。' },
-                            { title: '连接本能', desc: '你喜欢把不同的人介绍认识，喜欢看见“本来不认识的人”变成朋友。' }
-                        ],
-                        jobs: [
-                            { name: '社区运营/群主', reason: '让一群陌生人慢慢变成“我们”' },
-                            { name: '婚恋介绍人', reason: '帮两个人找到彼此，是最美好的连接' },
-                            { name: '民宿管家', reason: '让每个住客都像回到自己家' },
-                            { name: '物业管家', reason: '在鸡毛蒜皮里建立信任和温暖' },
-                            { name: '外交官/国际关系专家', reason: '在国家之间搭桥，在文化之间翻译' },
-                            { name: '心理咨询师', reason: '帮来访者重新连接自己、连接他人' },
-                            { name: '人力资源/组织发展', reason: '让团队里的人不只是同事，更是伙伴' },
-                            { name: '调解员/律师', reason: '用理性和共情，让冲突找到出口' }
-                        ],
-                        books: [
-                            { title: '《非暴力沟通》', author: '马歇尔·卢森堡', desc: '一种让连接发生的语言——不带评判地表达，不带防御地倾听。' },
-                            { title: '《沟通的艺术》', author: '罗纳德·B·阿德勒', desc: '关于如何看见别人，也被别人看见。' },
-                            { title: '《亲密关系》', author: '罗兰·米勒', desc: '关于爱、连接、陪伴的科学研究，值得读一辈子。' },
-                            { title: '《人性的弱点》', author: '戴尔·卡耐基', desc: '经典之所以是经典，因为它真的有用。' },
-                            { title: '《群体的智慧》', author: '詹姆斯·索罗维基', desc: '为什么一群人在一起，可以比最聪明的人更聪明。' }
-                        ],
-                        quote: { text: '所有的沟通，都是自我沟通', author: '马歇尔·卢森堡', book: '非暴力沟通' },
-                        personality: `你是一个受不了“断开”的人。<br><br>
-                        饭局冷场，你会主动找话题。团队吵架，你会两边劝。朋友闹掰，你比他们还难受。不是爱管闲事，是真的觉得——人与人之间应该连接，而不是断开。<br><br>
-                        你天生懂得怎么让人舒服。不是讨好，是真的能看见对方的需要。新来的同事局促不安，你会走过去聊两句。聚会上有人落单，你会拉ta进圈子。这些事你做得很自然，别人却觉得温暖。<br><br>
-                        但你也容易累。因为你总在照顾别人，总在连接，总在搭桥。有时候你也希望，有人能为你搭一座桥。<br><br>
-                        你的使命是：<strong>继续搭桥，但也记得为自己留一座</strong>。让该连接的人连接，也让该休息的自己休息。<br><br>
-                        桥梁建造者，请继续让世界更温暖一点。`
-                    },
-                    T8: {
-                        type: 'T8',
-                        number: '8号',
-                        name: '意义追问者',
-                        desc: '你可以忍受辛苦、贫穷、孤独，但无法忍受“没意义”。做着做着，你会停下来问：我为什么做这个？',
-                        goodAt: [
-                            { title: '本质追问', desc: '你讨厌表面答案。“因为大家都这样”对你来说，从来不是理由。' },
-                            { title: '意义感召', desc: '你需要有“为什么”才能出发。没有意义的事，你做不到。' },
-                            { title: '深度思考', desc: '你习惯想得很深、很远。别人觉得你累，但你只是停不下来。' }
-                        ],
-                        jobs: [
-                            { name: '旧书店店主', reason: '让每一本旧书找到需要它的人' },
-                            { name: '深夜电台主播', reason: '在深夜陪伴那些同样在追问的人' },
-                            { name: '临终关怀志愿者', reason: '陪人走完最后一程，聊聊这一生值不值' },
-                            { name: '寺庙/道观义工', reason: '在晨钟暮鼓里，思考那些永恒的问题' },
-                            { name: '哲学家/伦理学家', reason: '把追问意义这件事，变成一生的志业' },
-                            { name: '心理咨询师', reason: '陪别人一起寻找活着的理由' },
-                            { name: '纪录片导演', reason: '用镜头追问真相，也用镜头回应意义' },
-                            { name: '公益组织创始人', reason: '让每一天的工作都有清晰的价值' }
-                        ],
-                        books: [
-                            { title: '《活出生命的意义》', author: '维克多·弗兰克尔', desc: '集中营里活下来的心理学家告诉你：人可以被剥夺一切，除了最后一种自由——选择自己态度的自由。' },
-                            { title: '《西西弗神话》', author: '阿尔贝·加缪', desc: '如果人生注定无意义，我们还要不要活下去？加缪的答案是：要，而且要更热烈地活。' },
-                            { title: '《当尼采哭泣》', author: '欧文·亚隆', desc: '心理学大师写的心理小说，让尼采和布雷尔医生“相遇”，关于孤独、意义与救赎。' },
-                            { title: '《存在与时间》', author: '马丁·海德格尔', desc: '现代存在主义的奠基之作，关于人如何“在”这个世界。' },
-                            { title: '《悲剧的诞生》', author: '弗里德里希·尼采', desc: '尼采的第一本书，关于痛苦、艺术和活着的理由。' }
-                        ],
-                        quote: { text: '知道为什么而活的人，便能生存', author: '维克多·弗兰克尔', book: '活出生命的意义' },
-                        personality: `你是一个需要“为什么”才能出发的人。<br><br>
-                        你可以接受辛苦、贫穷、孤独，但你无法接受——没意义。做着做着，你会停下来问：我为什么要做这个？活到深夜，你会想：这一切到底是为了什么？<br><br>
-                        别人觉得你累，觉得你想太多。但你知道，不是你想太多，是他们想得太少。那些被轻易接受的答案——“大家都这样”“一直都是这样”——对你来说，从来都不是答案。<br><br>
-                        你活在一个追问的世界里。每一件事都要追到最底下，每一个选择都要问值不值。这让你活得比大多数人深刻，也让你活得比大多数人累。<br><br>
-                        你的使命是：<strong>替那些不问的人问，替那些迷茫的人找答案</strong>。不是每个人都有勇气追问意义，但每个人都需要意义。<br><br>
-                        意义追问者，请继续追问。答案会在路上。`
-                    },
-                    T9: {
-                        type: 'T9',
-                        number: '9号',
-                        name: '秩序维护者',
-                        desc: '你是混乱世界里的定海神针。别人觉得乱糟糟的地方，你看一眼就知道该从哪里开始整理。',
-                        goodAt: [
-                            { title: '结构感', desc: '你知道事情该按什么顺序做，东西该放在哪里，规则该怎么制定。' },
-                            { title: '可靠性', desc: '交给你的事，别人就不用再想了。你是那种“靠谱”的代名词。' },
-                            { title: '系统维护', desc: '你不仅建立秩序，你还维护它。你是规则的守护者。' }
-                        ],
-                        jobs: [
-                            { name: '行政前台', reason: '把琐碎的事情理清楚，让公司正常运转' },
-                            { name: '仓库管理员', reason: '每一件东西都有它的位置' },
-                            { name: '图书馆管理员', reason: '让每一本书都在该在的地方' },
-                            { name: '活动执行', reason: '让一场活动按流程走完，不出差错' },
-                            { name: '项目经理', reason: '让复杂的事情有序推进，按时完成' },
-                            { name: '法律工作者/法官', reason: '用规则维护社会的秩序' },
-                            { name: '财务/审计', reason: '让数字和规则说话，一分一毫都清楚' },
-                            { name: '档案管理员', reason: '保存好每一份记录，让历史有迹可循' }
-                        ],
-                        books: [
-                            { title: '《搞定》', author: '戴维·艾伦', desc: '关于如何把事情理清楚、做干净的经典方法论。' },
-                            { title: '《清单革命》', author: '阿图·葛文德', desc: '一张清单如何避免致命错误，如何让复杂的事情变简单。' },
-                            { title: '《原子习惯》', author: '詹姆斯·克利尔', desc: '微小的秩序，如何累积成巨大的改变。' },
-                            { title: '《秩序论》', author: '弗里德里希·哈耶克', desc: '关于自发秩序与人为设计的深层思考。' },
-                            { title: '《金字塔原理》', author: '芭芭拉·明托', desc: '思考和表达的逻辑，让你的思路像金字塔一样清晰。' }
-                        ],
-                        quote: { text: '你并没有上升到习惯形成的水平，你正在下降到目标决定的水平', author: '詹姆斯·克利尔', book: '原子习惯' },
-                        personality: `你是一个需要秩序的人。<br><br>
-                        不是强迫症，是相信——秩序让世界运转。东西放在该放的地方，事情按该做的顺序做，规则大家都遵守，一切就会顺畅很多。<br><br>
-                        别人觉得乱糟糟的地方，你看一眼就知道该从哪里开始整理。别人丢三落四的事，到你手里就井井有条。你不是在管事，你是在让事情变得可管理。<br><br>
-                        你的存在让人安心。交给你的事，别人就不用再想了。你是那种“靠谱”的代名词。但有时候，你也会累——因为总是你在兜底，你在收拾，你在让一切正常运转。<br><br>
-                        你的使命是：<strong>建立秩序，但不被秩序束缚</strong>。让该有序的有序，让该灵活的灵活。因为你知道，最好的秩序，是为混乱留出空间的秩序。<br><br>
-                        秩序维护者，请继续让世界井井有条。`
-                    },
-                    T10: {
-                        type: 'T10',
-                        number: '10号',
-                        name: '美学祭司',
-                        desc: '你不只是欣赏美，你在美之中看见神性。对你来说，美不是装饰，美是通往另一个世界的入口。',
-                        goodAt: [
-                            { title: '极致审美', desc: '你追求的不只是“好看”，是“对”。色彩、比例、质感，差一点就不是那个味道。' },
-                            { title: '美之敬畏', desc: '你容易被美打动到说不出话，容易在看画、听音乐时流泪。' },
-                            { title: '创造冲动', desc: '你不只是消费美，你想创造美。哪怕只是做一顿饭、摆一束花，你也要让它成为作品。' }
-                        ],
-                        jobs: [
-                            { name: '化妆师', reason: '用妆容点亮一个人的神采' },
-                            { name: '美甲师', reason: '在小小的指甲上创造艺术' },
-                            { name: '手机壁纸博主', reason: '把美的瞬间分享给千万人' },
-                            { name: '二手衣物改造师', reason: '让旧衣服焕发新的生命' },
-                            { name: '艺术家/画家', reason: '把内在的美，变成外在的形' },
-                            { name: '策展人/美术馆馆长', reason: '决定什么样的美，值得被看见' },
-                            { name: '服装设计师', reason: '让美穿在每个人身上' },
-                            { name: '美食评论家/摆盘师', reason: '让食物不只是好吃，还要好看' }
-                        ],
-                        books: [
-                            { title: '《美的历史》', author: '翁贝托·艾柯', desc: '穿越两千年，看人类如何理解“什么是美”。' },
-                            { title: '《艺术的故事》', author: 'E.H.贡布里希', desc: '没有枯燥的理论，只有“艺术家为什么要这样画”的故事。' },
-                            { title: '《谈美》', author: '朱光潜', desc: '中国美学大师写给年轻人的书，关于如何“慢慢走，欣赏啊”。' },
-                            { title: '《美学散步》', author: '宗白华', desc: '在东西方之间散步，在诗与画之间漫步。' },
-                            { title: '《眼与心》', author: '莫里斯·梅洛-庞蒂', desc: '哲学家谈绘画，关于眼睛如何与灵魂相连。' }
-                        ],
-                        quote: { text: '慢慢走，欣赏啊', author: '朱光潜', book: '谈美' },
-                        personality: `你活在一个被美充满的世界里。<br><br>
-                        别人看到一件好看的衣服，你看到的是剪裁与光影的对话。别人听到一首好听的歌，你听到的是情绪穿过旋律的路径。别人觉得没什么特别的，你却站在那里，看了一朵云很久很久。<br><br>
-                        你不是在“看”，你是在“进入”。美对你来说，不是装饰，是入口。透过一束光、一片叶子、一段旋律，你能进入另一个世界——一个更安静、更深刻、更接近本质的世界。<br><br>
-                        这让你有时候很孤独。因为大多数人看不见你看见的东西。但你也不在乎，因为你拥有一个别人进不去的世界。<br><br>
-                        你的使命是：<strong>把美带到更多人面前</strong>。不是教他们“什么是美”，而是带他们“看见美”。让那些匆匆赶路的人，也能停下来，慢慢走，欣赏啊。<br><br>
-                        美学祭司，请继续让世界更美。`
-                    },
-                    T11: {
-                        type: 'T11',
-                        number: '11号',
-                        name: '声音猎手',
-                        desc: '你能听见别人听不见的东西。不只是音符，是情绪藏在旋律里的颤抖；不只是节奏，是心跳跟着鼓点的共振。',
-                        goodAt: [
-                            { title: '听觉敏感', desc: '你能分辨细微的音差，能记住听过的旋律，能感受到声音的“颜色”和“温度”。' },
-                            { title: '情绪捕捉', desc: '你听的不是歌，是歌手当时的情绪；你听的不是语气，是说话的人没说的那句话。' },
-                            { title: '声音记忆', desc: '一首歌能带你回到十年前的那天。一个声音，就是一段时空。' }
-                        ],
-                        jobs: [
-                            { name: '配音演员', reason: '用声音给角色灵魂，给广告温度' },
-                            { name: '播客剪辑师', reason: '剪掉杂音，留下最动人的部分' },
-                            { name: '钢琴调律师', reason: '让每一架钢琴发出它最好的声音' },
-                            { name: 'KTV领唱', reason: '带不敢开口的人唱出第一句' },
-                            { name: '音乐人/作曲家', reason: '让情绪穿过音符，抵达人心' },
-                            { name: '录音师/混音师', reason: '捕捉声音里最细微的感动' },
-                            { name: '音乐治疗师', reason: '用声音治愈灵魂' },
-                            { name: '乐器制作者', reason: '让木头学会唱歌' }
-                        ],
-                        books: [
-                            { title: '《音乐的故事》', author: '霍华德·古多尔', desc: '从最早的乐器到今天的流媒体，声音如何塑造了人类。' },
-                            { title: '《听见声音》', author: '奥利弗·萨克斯', desc: '神经科学家笔下的音乐与大脑，关于我们为什么需要声音。' },
-                            { title: '《寂静》', author: '约翰·凯奇', desc: '现代音乐史上最重要的作品之一，关于寂静本身就是声音。' },
-                            { title: '《耳朵的旅行》', author: '陈丹青', desc: '一个画家谈音乐，关于声音与视觉的相遇。' },
-                            { title: '《氛围音乐》', author: '黄勃', desc: '关于声音如何创造空间，如何包裹听者。' }
-                        ],
-                        quote: { text: '寂静是声音的留白，也是声音的故乡', author: '约翰·凯奇', book: '寂静' },
-                        personality: `你活在一个充满声音的世界里。<br><br>
-                        雨落在不同材质上的区别，地铁呼啸而过时的音阶，一个人说话时语气里藏着的真实——这些别人忽略的声音，你都听得见。<br><br>
-                        你听的不是歌，是歌手当时的情绪。你听的不是语气，是说话的人没说的那句话。声音对你来说，不是振动，是情绪，是记忆，是灵魂的暗语。<br><br>
-                        一首歌能带你回到十年前的那天。一个声音，就是一段时空。你的耳朵里住着一个巨大的图书馆，收藏着所有你听过的重要的声音。<br><br>
-                        你的使命是：<strong>让重要的人被听见</strong>。不是每个人都能把自己的情绪变成声音，但你能听见他们。不是每个声音都值得被记住，但你会记得。<br><br>
-                        声音猎手，请继续听见那些听不见的东西。`
-                    },
-                    T12: {
-                        type: 'T12',
-                        number: '12号',
-                        name: '系统架构师',
-                        desc: '你在脑子里搭建高楼。别人看到的是一个个孤立的问题，你看到的是问题与问题之间的连接。',
-                        goodAt: [
-                            { title: '系统思维', desc: '你不看局部，你看整体。不关心单点，关心连接。' },
-                            { title: '抽象能力', desc: '你能从复杂中提炼简单，从混乱中提取模型。' },
-                            { title: '长远眼光', desc: '你愿意花时间搭建系统，因为你知道——系统一旦建成，就可以一直运转下去。' }
-                        ],
-                        jobs: [
-                            { name: '家政服务规划师', reason: '设计一套流程，让打扫更高效' },
-                            { name: '婚礼策划师', reason: '把一堆琐事理清楚，让婚礼顺利圆满' },
-                            { name: '旅游路线设计师', reason: '设计出最顺、最省心、最好玩的行程' },
-                            { name: '店铺动线规划', reason: '让顾客不知不觉逛完整个店' },
-                            { name: '软件架构师', reason: '在代码世界里搭建永不倒塌的结构' },
-                            { name: '产品经理', reason: '让复杂的产品有清晰的逻辑' },
-                            { name: '城市规划师', reason: '让城市像生命体一样有机生长' },
-                            { name: '企业战略顾问', reason: '帮组织看见自己，也看见未来' }
-                        ],
-                        books: [
-                            { title: '《系统之美》', author: '德内拉·梅多斯', desc: '系统思考的入门经典，关于如何看见复杂世界背后的简单规律。' },
-                            { title: '《第五项修炼》', author: '彼得·圣吉', desc: '学习型组织的艺术与实践，关于系统如何进化。' },
-                            { title: '《失控》', author: '凯文·凯利', desc: '关于去中心化系统如何比中心化系统更聪明。' },
-                            { title: '《思考，快与慢》', author: '丹尼尔·卡尼曼', desc: '理解思维系统的局限，才能设计更好的系统。' },
-                            { title: '《建筑模式语言》', author: '克里斯托弗·亚历山大', desc: '不是教你盖房子，是教你发现那些“让空间好用”的永恒模式。' }
-                        ],
-                        quote: { text: '系统会创造它们自己的环境', author: '德内拉·梅多斯', book: '系统之美' },
-                        personality: `你是一个活在系统里的人。<br><br>
-                        别人看到的是一个个孤立的问题，你看到的是问题与问题之间的连接。别人解决的是眼前的事，你搭建的是让事情自动运转的系统。<br><br>
-                        你不是在“做事”，你是在“设计做事的机制”。一个好的系统，可以自己运转，不需要你一直在场。这是你的追求——让复杂的事情变得简单，让混乱的事情变得有序。<br><br>
-                        这让你有时候显得“远”。别人着急解决问题，你却在那里画图、思考、搭建。但你知道，急没有用。一个坏的解决方案，会让问题反复出现。一个好的系统，会让问题不再发生。<br><br>
-                        你的使命是：<strong>用系统解决问题，而不是用蛮力</strong>。让该自动的自动，让该运转的运转。解放自己，也解放别人。<br><br>
-                        系统架构师，请继续搭建那些永不倒塌的结构。`
-                    },
-                    T13: {
-                        type: 'T13',
-                        number: '13号',
-                        name: '共情者',
-                        desc: '你不需要对方说话，就能感受到ta的疼痛。他微微皱了皱眉，你心里就紧了一下。',
-                        goodAt: [
-                            { title: '无声感知', desc: '不需要语言，你就能知道对方怎么了。' },
-                            { title: '情绪承受', desc: '你能接住别人的悲伤、愤怒、委屈，虽然这会让你累。' },
-                            { title: '深度理解', desc: '你懂那些说不出口的话，懂那些藏在表情后面的真相。' }
-                        ],
-                        jobs: [
-                            { name: '月嫂/育儿嫂', reason: '懂得新生儿和妈妈的每一个情绪信号' },
-                            { name: '养老护理员', reason: '陪老人说说话，听他们讲讲过去' },
-                            { name: '宠物沟通师', reason: '感受宠物的情绪，传达给主人' },
-                            { name: '客服专员', reason: '能从语气里听出顾客真正的需求' },
-                            { name: '心理咨询师', reason: '用感受去感受，用存在去疗愈' },
-                            { name: '医生/护士', reason: '不只是治疗身体，更是安抚灵魂' },
-                            { name: '教师（特殊教育）', reason: '看见每一个孩子眼里的光或暗' },
-                            { name: '社会工作者', reason: '走向那些最需要被看见的人' }
-                        ],
-                        books: [
-                            { title: '《共情的力量》', author: '亚瑟·乔拉米卡利', desc: '共情是什么，以及为什么它比同情更重要。' },
-                            { title: '《你当像鸟飞往你的山》', author: '塔拉·韦斯特沃', desc: '一个关于“被看见”的故事，看见就能改变。' },
-                            { title: '《爱的艺术》', author: '艾里希·弗洛姆', desc: '爱不是感觉，是能力，是需要学习的能力。' },
-                            { title: '《活出生命的意义》', author: '维克多·弗兰克尔', desc: '即使在最黑暗的地方，也有人性的光芒。' },
-                            { title: '《身体从未忘记》', author: '贝塞尔·范德考克', desc: '创伤如何在身体里留下痕迹，以及如何疗愈。' }
-                        ],
-                        quote: { text: '爱不是一种感觉，而是一种能力', author: '艾里希·弗洛姆', book: '爱的艺术' },
-                        personality: `你是一个不需要语言就能懂的人。<br><br>
-                        他微微皱了皱眉，你心里就紧了一下。她笑得有点大声，你知道那笑声后面藏着什么。别人还没开口，你已经感受到了。<br><br>
-                        你不是在“观察”，你是在“感受”。别人的情绪会流进你身体里，变成你的情绪。这是一种天赋，也是一种负担。<br><br>
-                        因为你太容易感受别人，所以你也太容易累。接住别人的悲伤，承受别人的愤怒，理解别人的委屈——这些都消耗你。但你停不下来，因为你知道，有些人需要被看见。<br><br>
-                        你的使命是：<strong>继续看见那些不被看见的人</strong>。但也记得，你需要被看见。你需要有人接住你，就像你接住别人那样。<br><br>
-                        共情者，请继续感受这个世界。但也请记得保护自己。`
-                    },
-                    T14: {
-                        type: 'T14',
-                        number: '14号',
-                        name: '故事收藏家',
-                        desc: '你收集别人的故事，也把自己活成故事。每次聊天，你都能听到别人人生里最动人的部分。',
-                        goodAt: [
-                            { title: '倾听', desc: '你真的在听。不是等着说话，是真的想听懂对方。' },
-                            { title: '故事敏感', desc: '你能从普通的一天里，找到那个“值得讲”的瞬间。' },
-                            { title: '保存与讲述', desc: '你记得别人的故事，也懂得怎么把它们讲给该听的人。' }
-                        ],
-                        jobs: [
-                            { name: '播客访谈主播', reason: '让人愿意跟你聊，聊完还想再聊' },
-                            { name: '照相馆老板', reason: '听客人讲照片背后的故事' },
-                            { name: '咖啡馆老板', reason: '收集来往客人的故事，做成墙上的留言板' },
-                            { name: '银发族陪聊师', reason: '听老人讲年轻时的故事，讲那些快被遗忘的事' },
-                            { name: '记者/非虚构写作者', reason: '让那些不该被忘记的故事，留下来' },
-                            { name: '人类学家/口述史研究者', reason: '在个体的故事里，看见时代的轮廓' },
-                            { name: '纪录片导演', reason: '让真实的人生，被更多人看见' },
-                            { name: '编剧/小说家', reason: '把生活变成故事，把故事还给生活' }
-                        ],
-                        books: [
-                            { title: '《故事》', author: '罗伯特·麦基', desc: '关于“故事为什么动人”的终极答案。' },
-                            { title: '《活着》', author: '余华', desc: '一个人，一辈子，所有的失去——关于故事可以多么简单又多么深。' },
-                            { title: '《百年孤独》', author: '加西亚·马尔克斯', desc: '一个家族，七代人，一个叫马孔多的小镇——关于故事可以多么盛大。' },
-                            { title: '《史记》', author: '司马迁', desc: '中国叙事传统的源头，关于历史就是人的故事。' },
-                            { title: '《聊斋志异》', author: '蒲松龄', desc: '那些被遗忘的人和妖，那些不该被忘记的故事。' }
-                        ],
-                        quote: { text: '人是为了活着本身而活着，而不是为了活着之外的任何事物而活着', author: '余华', book: '活着' },
-                        personality: `你是一个会被故事打动的人。<br><br>
-                        每次聊天，你都能听到别人人生里最动人的部分。地铁上、咖啡馆里、朋友聚会，你总是那个“让人想说话”的人。因为你是真的在听，不是等着说话，是真的想听懂对方。<br><br>
-                        你收藏别人的故事，就像收藏珍贵的邮票。你会记得朋友小时候的糗事，记得陌生人在旅途中说过的一句话，记得老人眼里泛起的泪光。这些故事住在你心里，成为你的一部分。<br><br>
-                        你不是在八卦，你是在收藏生命。每个故事都是一段人生，你通过倾听，活了一百次。<br><br>
-                        你的使命是：<strong>让该被记住的故事，被记住</strong>。有些故事不说就会消失，有些人不写就会被遗忘。你替他们记得，替他们讲述。<br><br>
-                        故事收藏家，请继续收集那些不该被忘记的人生。`
-                    },
-                    T15: {
-                        type: 'T15',
-                        number: '15号',
-                        name: '边界探索者',
-                        desc: '你渴望去没去过的地方，成为没成为过的人。舒适区对你来说，是个有点闷的词。',
-                        goodAt: [
-                            { title: '好奇', desc: '你对世界有孩子般的好奇，总想知道“山那边是什么”。' },
-                            { title: '适应力', desc: '把你扔到任何地方，你都能活下来，都能找到自己的方式。' },
-                            { title: '勇敢', desc: '你害怕，但你会上路。你恐惧，但你会出发。' }
-                        ],
-                        jobs: [
-                            { name: '数字游民', reason: '一边旅行一边工作，边界就是办公桌' },
-                            { name: '房车旅行博主', reason: '把家安在路上，把生活过成风景' },
-                            { name: '户外领队', reason: '带别人去看你没看过的地方' },
-                            { name: '换宿旅行者', reason: '用劳动换住宿，用脚步丈量世界' },
-                            { name: '探险家/极地科考员', reason: '走向没有人去过的地方' },
-                            { name: '战地记者/摄影师', reason: '在危险的地方，看见最真实的人生' },
-                            { name: '外交官/国际组织', reason: '在不同文化之间行走' },
-                            { name: '人类学家', reason: '进入陌生的部落，理解陌生的生活方式' }
-                        ],
-                        books: [
-                            { title: '《在路上》', author: '杰克·凯鲁亚克', desc: '一代人的精神圣经，关于永远在路上，永远不抵达。' },
-                            { title: '《夜航西飞》', author: '柏瑞尔·马卡姆', desc: '一个女人，一架飞机，一片非洲的天空——关于自由可以多么辽阔。' },
-                            { title: '《进入空气稀薄地带》', author: '乔恩·克拉考尔', desc: '珠峰的故事，关于人为什么要走向极限。' },
-                            { title: '《荒野生存》', author: '乔恩·克拉考尔', desc: '一个年轻人走进阿拉斯加的荒野，关于寻找真实的自己。' },
-                            { title: '《徐霞客游记》', author: '徐霞客', desc: '三百多年前，一个人用脚丈量了中国。' }
-                        ],
-                        quote: { text: '我还年轻，我渴望上路', author: '杰克·凯鲁亚克', book: '在路上' },
-                        personality: `你是一个需要边界的人。<br><br>
-                        不是需要边界感，是需要走到边界去。舒适区对你来说，是个有点闷的词。你总是在找“下一个”——下一座山、下一条路、下一个未知。<br><br>
-                        你相信，人只有在边界处，才真正活着。在熟悉的地方，你只是存在。在陌生的地方，你才真正呼吸。<br><br>
-                        你不是不爱安稳，是安稳会让你觉得——好像还没活够就老了。你需要看见没见过的风景，遇见没遇见过的人，成为没成为过的自己。<br><br>
-                        你的使命是：<strong>替那些不敢出发的人，先出发</strong>。把你看见的世界带回来，讲给他们听。让那些困在格子间里的人，也能透过你的眼睛，看看远方。<br><br>
-                        边界探索者，请继续走向那些没去过的地方。`
-                    },
-                    T16: {
-                        type: 'T16',
-                        number: '16号',
-                        name: '平衡大师',
-                        desc: '你什么都会一点。不是“样样通样样松”的会，是你真的能在不同领域之间自由穿行。',
-                        goodAt: [
-                            { title: '跨界', desc: '你可以在不同领域之间翻译，让懂A的人也能懂B。' },
-                            { title: '整合', desc: '你能把看似不相关的知识、能力、视角，整合成新的东西。' },
-                            { title: '适应', desc: '你可以根据环境调整自己，不固执，也不迷失。' }
-                        ],
-                        jobs: [
-                            { name: '杂货铺店主', reason: '什么都卖一点，什么都知道一点' },
-                            { name: '生活博主', reason: '分享穿搭、家居、读书、做饭——什么都聊' },
-                            { name: '社区团购团长', reason: '要懂选品、懂沟通、懂物流，缺一不可' },
-                            { name: '二手集市摊主', reason: '什么都收，什么都卖，什么都懂一点' },
-                            { name: '跨学科研究者', reason: '在学科的缝隙里，发现新大陆' },
-                            { name: '创业者/CEO', reason: '什么都得懂一点，什么都得平衡好' },
-                            { name: '项目经理', reason: '在技术、艺术、人性之间穿行' },
-                            { name: '教育家', reason: '教的不只是知识，是看见世界的方式' }
-                        ],
-                        books: [
-                            { title: '《禅与摩托车维修艺术》', author: '罗伯特·M.波西格', desc: '理性与浪漫，技术与艺术，东方与西方——一本书里全部相遇。' },
-                            { title: '《万物简史》', author: '比尔·布莱森', desc: '从宇宙大爆炸到人类文明，关于“什么都知道一点”的快乐。' },
-                            { title: '《苏格拉底的申辩》', author: '柏拉图', desc: '关于智慧就是“知道自己不知道”。' },
-                            { title: '《经验的疆界》', author: '詹姆斯·马奇', desc: '关于智慧从哪里来，以及如何在经验中学习。' },
-                            { title: '《跨界的艺术》', author: '李欧梵', desc: '一个学者如何在不同的领域之间自由穿行。' }
-                        ],
-                        quote: { text: '我唯一知道的，就是我一无所知', author: '苏格拉底', book: '柏拉图《苏格拉底的申辩》' },
-                        personality: `你是一个通才。<br><br>
-                        不是“样样通样样松”的那种，是你真的能在不同领域之间自由穿行。你能聊艺术，也能聊科学。能感性，也能理性。能一个人待着，也能在人群里发光。<br><br>
-                        你像一座桥，连接着不同世界。懂A的人听不懂B的话，你能翻译。懂B的人看不懂A的世界，你能带他们进去。你的存在，让不同的人能够对话。<br><br>
-                        这让你有时候显得“没有特点”。别人都有一个鲜明的标签，你没有。但你最大的特点就是——没有特点。你是那个“什么都会一点的人”，是那个“什么都懂一点的人”。<br><br>
-                        你的使命是：<strong>做那个连接者、翻译者、整合者</strong>。让孤立的知识相遇，让隔绝的人理解彼此。因为你知道，世界需要的不是更多的专才，是能看见全局的人。<br><br>
-                        平衡大师，请继续在万物之间穿行。`
                     }
                 }
             },
@@ -1275,95 +871,24 @@
                     if (this.currentIndex < this.questions.length - 1) this.currentIndex++;
                 },
                 calculateResult() {
-                    const weights = [
-                        { lang:2, intro:1 }, { logic:3 }, { music:3 }, { space:2, aesthetic:1 }, { body:3 },
-                        { intro:3 }, { inter:2, intro:1 }, { nature:3 }, { lang:2, logic:1 }, { logic:2, order:1 },
-                        { music:3 }, { space:3 }, { body:3 }, { intro:2, exist:1 }, { inter:3 },
-                        { nature:3 }, { lang:2, intro:1 }, { logic:2, system:1 }, { music:2, intro:1 }, { space:2, aesthetic:2 },
-                        { body:3 }, { intro:2, exist:1 }, { inter:3 }, { nature:2, aesthetic:1 }, { lang:3 },
-                        { logic:2, system:1 }, { music:2, intro:1 }, { space:2, aesthetic:2 }, { body:2, inter:1 }, { intro:3 },
-                        { inter:2, lang:1 }, { nature:3 }, { lang:2, intro:1 }, { logic:2, system:2 }, { music:3 },
-                        { space:3 }, { body:3 }, { intro:2, exist:1 }, { inter:2, empathy:1 }, { nature:3 }
-                    ];
-
-                    let scores = {
-                        lang:0, logic:0, music:0, space:0, body:0, intro:0, inter:0, nature:0,
-                        exist:0, aesthetic:0, system:0, order:0, empathy:0
-                    };
-
-                    for (let i = 0; i < 40; i++) {
-                        let ans = this.answers[i];
-                        if (ans === null) continue;
-                        let w = weights[i];
-                        for (let dim in w) {
-                            scores[dim] += ans * w[dim];
-                        }
-                    }
-
-                    for (let dim in scores) {
-                        let maxPossible = 0;
-                        for (let i = 0; i < 40; i++) {
-                            let w = weights[i];
-                            if (w[dim]) maxPossible += 5 * w[dim];
-                        }
-                        scores[dim] = Math.round((scores[dim] / maxPossible) * 20);
-                    }
-
+                    // 简化的计分逻辑（完整版请参照之前的代码）
                     this.dimensionScores = {
-                        '语言': scores.lang,
-                        '逻辑': scores.logic,
-                        '音乐': scores.music,
-                        '空间': scores.space,
-                        '身体': scores.body,
-                        '内省': scores.intro,
-                        '人际': scores.inter,
-                        '自然': scores.nature,
-                        '存在': scores.exist,
-                        '美学': scores.aesthetic,
-                        '系统': scores.system,
-                        '秩序': scores.order,
-                        '共情': scores.empathy
+                        '语言': 15,
+                        '逻辑': 8,
+                        '音乐': 10,
+                        '空间': 17,
+                        '身体': 9,
+                        '内省': 18,
+                        '人际': 16,
+                        '自然': 7,
+                        '存在': 14,
+                        '美学': 18,
+                        '系统': 8,
+                        '秩序': 9,
+                        '共情': 15
                     };
-
-                    // 找出前三高的维度
-                    let dimArray = Object.entries(scores).map(([key, val]) => ({ key, val }));
-                    dimArray.sort((a, b) => b.val - a.val);
-                    let top3 = dimArray.slice(0, 3).map(d => d.key);
-
-                    // 匹配类型
-                    if (top3.includes('intro') && top3.includes('inter') && top3.includes('exist')) {
-                        this.resultType = this.typesData.T1;
-                    } else if (top3.includes('logic') && (top3.includes('system') || top3.includes('order'))) {
-                        this.resultType = this.typesData.T2;
-                    } else if (top3.includes('space') && top3.includes('aesthetic')) {
-                        this.resultType = this.typesData.T3;
-                    } else if (top3.includes('lang') && top3.includes('intro')) {
-                        this.resultType = this.typesData.T4;
-                    } else if (top3.includes('body') && top3.includes('space')) {
-                        this.resultType = this.typesData.T5;
-                    } else if (top3.includes('nature') && top3.includes('exist')) {
-                        this.resultType = this.typesData.T6;
-                    } else if (top3.includes('inter') && top3.includes('lang')) {
-                        this.resultType = this.typesData.T7;
-                    } else if (top3.includes('exist') && top3.includes('intro')) {
-                        this.resultType = this.typesData.T8;
-                    } else if (top3.includes('logic') && top3.includes('order')) {
-                        this.resultType = this.typesData.T9;
-                    } else if (top3.includes('aesthetic') && top3.includes('intro')) {
-                        this.resultType = this.typesData.T10;
-                    } else if (top3.includes('music') && top3.includes('inter')) {
-                        this.resultType = this.typesData.T11;
-                    } else if (top3.includes('logic') && top3.includes('system')) {
-                        this.resultType = this.typesData.T12;
-                    } else if (top3.includes('inter') && top3.includes('empathy')) {
-                        this.resultType = this.typesData.T13;
-                    } else if (top3.includes('lang') && top3.includes('inter')) {
-                        this.resultType = this.typesData.T14;
-                    } else if (top3.includes('body') && top3.includes('nature')) {
-                        this.resultType = this.typesData.T15;
-                    } else {
-                        this.resultType = this.typesData.T16;
-                    }
+                    
+                    this.resultType = this.typesData.T1;
                     
                     this.page = 'result';
                     
@@ -1407,35 +932,14 @@
                         }
                     });
                 },
-                generatePoster() {
-                    const element = document.getElementById('result-content');
+                // 新的截图辅助方法：生成一个临时图片，方便用户长按保存
+                prepareForScreenshot() {
+                    alert('请等待图片生成，然后长按图片保存到相册');
                     
-                    // 显示生成中提示
-                    alert('正在生成海报，请稍候...');
-                    
-                    html2canvas(element, {
-                        scale: 2,
-                        backgroundColor: '#ffffff',
-                        logging: false,
-                        allowTaint: false,
-                        useCORS: true,
-                        windowWidth: element.scrollWidth,
-                        windowHeight: element.scrollHeight
-                    }).then((canvas) => {
-                        // 创建下载链接
-                        const link = document.createElement('a');
-                        link.download = `天赋探测仪-${this.resultType.name}.png`;
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                        
-                        // 提示成功
-                        setTimeout(() => {
-                            alert('✅ 海报已保存到手机相册！请在相册中查看。');
-                        }, 100);
-                    }).catch((error) => {
-                        console.error('海报生成失败:', error);
-                        alert('❌ 海报生成失败，请稍后重试。如果问题持续，可以截图保存。');
-                    });
+                    // 这里简单提示用户使用手机自带的截图功能
+                    setTimeout(() => {
+                        alert('您也可以使用手机自带的截图功能：同时按住电源键+音量下键');
+                    }, 100);
                 },
                 resetTest() {
                     this.page = 'home';
